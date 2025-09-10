@@ -57,7 +57,11 @@ export async function POST(
 
     // Send email
     const emailProvider = createEmailProvider()
-    const emailCfg = partnerVersion.emailCfg
+    const emailCfg = partnerVersion.emailCfg as any
+
+    if (!emailCfg) {
+      return NextResponse.json({ error: 'Email configuration not found' }, { status: 400 })
+    }
 
     const to = emailCfg.to || []
     const cc: string[] = []
