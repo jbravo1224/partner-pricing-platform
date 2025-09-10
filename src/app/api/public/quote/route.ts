@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate pricing
-    const pricingResult = calculatePricing(publishedVersion.pricingCfg, inputs)
+    const pricingResult = calculatePricing(publishedVersion.pricingCfg as any, inputs)
 
     // Save quote to database
     const quote = await prisma.quote.create({
