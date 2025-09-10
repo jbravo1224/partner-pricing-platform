@@ -66,7 +66,7 @@ export async function POST(
     const to = emailCfg.to || []
     const cc: string[] = []
 
-    if (emailCfg.ccDefaultSubmitter && quote.inputs.email) {
+    if (emailCfg.ccDefaultSubmitter && quote.inputs && quote.inputs.email) {
       cc.push(quote.inputs.email)
     }
 
@@ -74,7 +74,7 @@ export async function POST(
       cc.push(quote.additionalCc)
     }
 
-    const html = generateQuoteEmailHTML(quote.partner, pricingResult, quote.inputs, quote.id)
+    const html = generateQuoteEmailHTML(quote.partner, pricingResult, quote.inputs as any, quote.id)
 
     await emailProvider.sendEmail(to, `Updated Quote - ${quote.partner.name}`, html, cc)
 
