@@ -86,7 +86,7 @@ async function sendQuoteEmail(
   const cc: string[] = []
 
   // Add submitter to CC if configured
-  if (emailCfg.ccDefaultSubmitter && inputs.email) {
+  if (emailCfg.ccDefaultSubmitter && inputs?.email) {
     cc.push(inputs.email)
   }
 
@@ -132,7 +132,7 @@ function generateQuoteEmailHTML(partner: any, pricingResult: any, inputs: any, q
         <div class="section">
           <h2>Project Details</h2>
           <div class="input-section">
-            ${Object.entries(inputs).map(([key, value]) => `
+            ${Object.entries(inputs).map(([key, value]: [string, any]) => `
               <div class="input-item">
                 <span class="label">${key}:</span> 
                 <span>${Array.isArray(value) ? value.join(', ') : String(value)}</span>

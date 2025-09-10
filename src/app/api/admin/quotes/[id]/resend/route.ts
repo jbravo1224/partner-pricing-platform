@@ -66,7 +66,7 @@ export async function POST(
     const to = emailCfg.to || []
     const cc: string[] = []
 
-    if (emailCfg.ccDefaultSubmitter && quote.inputs.email) {
+    if (emailCfg.ccDefaultSubmitter && quote.inputs?.email) {
       cc.push(quote.inputs.email)
     }
 
@@ -74,7 +74,7 @@ export async function POST(
       cc.push(quote.additionalCc)
     }
 
-    const html = generateQuoteEmailHTML(quote.partner, pricingResult, quote.inputs, quote.id)
+    const html = generateQuoteEmailHTML(quote.partner, pricingResult, quote.inputs || {}, quote.id)
 
     await emailProvider.sendEmail(to, `Updated Quote - ${quote.partner.name}`, html, cc)
 
@@ -119,7 +119,7 @@ function generateQuoteEmailHTML(partner: any, pricingResult: any, inputs: any, q
         <div class="section">
           <h2>Project Details</h2>
           <div class="input-section">
-            ${Object.entries(inputs).map(([key, value]) => `
+            ${Object.entries(inputs).map(([key, value]: [string, any]) => `
               <div class="input-item">
                 <span class="label">${key}:</span> 
                 <span>${Array.isArray(value) ? value.join(', ') : String(value)}</span>
