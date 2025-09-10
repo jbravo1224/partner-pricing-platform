@@ -43,7 +43,7 @@ export async function POST(
 
     // Recalculate pricing with current rules
     const { calculatePricing } = await import('@/lib/pricing-engine')
-    const pricingResult = calculatePricing(partnerVersion.pricingCfg as any, quote.inputs)
+    const pricingResult = calculatePricing(partnerVersion.pricingCfg as any, quote.inputs as any)
 
     // Update quote with new pricing
     const updatedQuote = await prisma.quote.update({
