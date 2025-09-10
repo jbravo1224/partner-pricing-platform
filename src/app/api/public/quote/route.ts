@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
         subtotal: pricingResult.subtotal,
         total: pricingResult.total,
         currency: pricingResult.currency,
-        lineItems: pricingResult.lineItems
+        lineItems: pricingResult.lineItems as any
       }
     })
 
