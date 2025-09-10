@@ -52,11 +52,11 @@ export async function POST(request: NextRequest) {
         version: 1,
         isDraft: true,
         isPublished: false,
-        branding: partner.branding,
-        emailCfg: partner.emailCfg,
-        formCfg: partner.formCfg,
-        pricingCfg: partner.pricingCfg,
-        features: partner.features
+        branding: partner.branding as any,
+        emailCfg: partner.emailCfg as any,
+        formCfg: partner.formCfg as any,
+        pricingCfg: partner.pricingCfg as any,
+        features: partner.features as any
       }
     })
 
