@@ -66,8 +66,8 @@ export async function POST(
     const to = emailCfg.to || []
     const cc: string[] = []
 
-    if (emailCfg.ccDefaultSubmitter && quote.inputs?.email) {
-      cc.push(quote.inputs.email)
+    if (emailCfg.ccDefaultSubmitter && quote.inputs && typeof quote.inputs === 'object' && 'email' in quote.inputs) {
+      cc.push((quote.inputs as any).email)
     }
 
     if (emailCfg.allowAdditionalCc && quote.additionalCc) {

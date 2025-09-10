@@ -241,7 +241,7 @@ export default function AdminQuotes() {
                         {quote.partner.name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {quote.inputs.projectType || 'N/A'}
+                        {(quote.inputs as any)?.projectType || 'N/A'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {quote.currency} {quote.total.toLocaleString()}
