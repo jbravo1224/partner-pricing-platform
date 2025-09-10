@@ -1,0 +1,29 @@
+name: partner-pricing-platform
+services:
+- name: web
+  source_dir: /
+  github:
+    repo: yourusername/partner-pricing-platform
+    branch: main
+  run_command: npm start
+  environment_slug: node-js
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  envs:
+  - key: NODE_ENV
+    value: production
+  - key: DATABASE_URL
+    value: ${db.DATABASE_URL}
+  - key: ADMIN_PASSWORD
+    value: ${ADMIN_PASSWORD}
+  - key: EMAIL_PROVIDER
+    value: postmark
+  - key: EMAIL_FROM
+    value: ${EMAIL_FROM}
+  - key: POSTMARK_KEY
+    value: ${POSTMARK_KEY}
+
+databases:
+- name: db
+  engine: PG
+  version: "13"

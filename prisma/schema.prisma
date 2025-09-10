@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Partner {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  branding  Json     // { logoUrl, colors }
+  emailCfg  Json     // { to[], ccDefaultSubmitter?, allowAdditionalCc? }
+  formCfg   Json     // { sections: [{ fields: [{ type, name, label, required, min, max, options }] }] }
+  pricingCfg Json    // { currency, baseTable|baseMatrix, rules[] }
+  features  Json     // {}
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  versions PartnerVersion[]
+  quotes   Quote[]
+
+  @@map("partners")
+}
+
+model PartnerVersion {
+  id        String   @id @default(cuid())
+  partnerId String
+  version   Int      @default(1)
+  isDraft   Boolean  @default(true)
+  isPublished Boolean @default(false)
+  branding  Json
+  emailCfg  Json
+  formCfg   Json
+  pricingCfg Json
+  features  Json
+  createdAt DateTime @default(now())
+  publishedAt DateTime?
+
+  partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  @@unique([partnerId, version])
+  @@map("partner_versions")
+}
+
+model Quote {
+  id           String   @id @default(cuid())
+  partnerId    String
+  partnerSlug  String
+  inputs       Json     // Form inputs
+  additionalCc String?  // Additional CC emails
+  subtotal     Float
+  total        Float
+  currency     String
+  lineItems    Json     // Computed line items
+  status       String   @default("pending") // pending, sent, viewed
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  @@map("quotes")
+}
+
+model AdminSession {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("admin_sessions")
+}
