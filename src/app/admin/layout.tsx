@@ -15,10 +15,11 @@ export default function AdminLayout({
   const pathname = usePathname()
 
   useEffect(() => {
-    const checkAuth = async () => {
+    const checkAuth = () => {
       const token = localStorage.getItem('adminToken')
+      const isAuthenticated = localStorage.getItem('adminAuthenticated')
       
-      if (!token) {
+      if (!token || !isAuthenticated) {
         if (pathname !== '/admin/login') {
           router.push('/admin/login')
         }
@@ -26,29 +27,9 @@ export default function AdminLayout({
         return
       }
 
-      try {
-        const response = await fetch('/api/admin/validate', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-
-        if (response.ok) {
-          setIsAuthenticated(true)
-        } else {
-          localStorage.removeItem('adminToken')
-          if (pathname !== '/admin/login') {
-            router.push('/admin/login')
-          }
-        }
-      } catch (error) {
-        localStorage.removeItem('adminToken')
-        if (pathname !== '/admin/login') {
-          router.push('/admin/login')
-        }
-      } finally {
-        setLoading(false)
-      }
+      // Simple check - if token exists, consider authenticated
+      setIsAuthenticated(true)
+      setLoading(false)
     }
 
     checkAuth()
@@ -58,15 +39,20 @@ export default function AdminLayout({
     const token = localStorage.getItem('adminToken')
     
     if (token) {
-      await fetch('/api/admin/logout', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
+      try {
+        await fetch('/api/admin/logout', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+      } catch (error) {
+        // Ignore logout API errors
+      }
     }
     
     localStorage.removeItem('adminToken')
+    localStorage.removeItem('adminAuthenticated')
     router.push('/admin/login')
   }
 

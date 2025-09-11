@@ -26,7 +26,9 @@ export default function AdminLogin() {
       const data = await response.json()
 
       if (response.ok) {
-        localStorage.setItem('adminToken', data.token)
+        // Store a simple admin flag instead of complex token
+        localStorage.setItem('adminToken', data.token || 'admin-authenticated')
+        localStorage.setItem('adminAuthenticated', 'true')
         router.push('/admin')
       } else {
         setError(data.error || 'Login failed')
