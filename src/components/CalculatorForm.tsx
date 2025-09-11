@@ -309,7 +309,7 @@ export default function CalculatorFormV2() {
     setSubtotal(calculatedSubtotal)
 
     // Apply rush discount
-    const finalTotal = formData.rush ? calculatedSubtotal * 1.2 : calculatedSubtotal
+    const finalTotal = formData.timeline === 'Rush' ? calculatedSubtotal * 1.2 : calculatedSubtotal
     setTotal(finalTotal)
 
     // Calculate timeline based on page count
