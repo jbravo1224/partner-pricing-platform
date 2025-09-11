@@ -27,6 +27,12 @@ export default function Home() {
                 >
                   Website Pricing Calculator
                 </Link>
+                <Link 
+                  href="/quotes"
+                  className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  View My Quotes
+                </Link>
               </div>
             </div>
             
