@@ -308,7 +308,7 @@ export default function CalculatorFormV2() {
     setPricingItems(items)
     setSubtotal(calculatedSubtotal)
 
-    // Apply rush discount
+    // Apply rush discount (20% surcharge for rush projects)
     const finalTotal = formData.timeline === 'Rush' ? calculatedSubtotal * 1.2 : calculatedSubtotal
     setTotal(finalTotal)
 
