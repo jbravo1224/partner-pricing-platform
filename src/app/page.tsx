@@ -22,6 +22,12 @@ export default function Home() {
               </p>
               <div className="space-y-3">
                 <Link 
+                  href="/calculator"
+                  className="block w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors"
+                >
+                  New Calculator (Beta)
+                </Link>
+                <Link 
                   href="/p/acme"
                   className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
                 >
