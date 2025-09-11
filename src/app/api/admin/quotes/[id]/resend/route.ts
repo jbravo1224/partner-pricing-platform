@@ -66,27 +66,18 @@ export async function POST(
     const to = emailCfg.to || []
     const cc: string[] = []
 
-<<<<<<< HEAD
     if (emailCfg.ccDefaultSubmitter && quote.inputs && typeof quote.inputs === 'object' && 'email' in quote.inputs) {
       const inputs = quote.inputs as Record<string, any>
       if (typeof inputs.email === 'string') {
         cc.push(inputs.email)
       }
-=======
-    if (emailCfg.ccDefaultSubmitter && quote.inputs && quote.inputs.email) {
-      cc.push(quote.inputs.email)
->>>>>>> 4df509acad37a240953620813817f426c2f75c5d
     }
 
     if (emailCfg.allowAdditionalCc && quote.additionalCc) {
       cc.push(quote.additionalCc)
     }
 
-<<<<<<< HEAD
     const html = generateQuoteEmailHTML(quote.partner, pricingResult, quote.inputs || {}, quote.id)
-=======
-    const html = generateQuoteEmailHTML(quote.partner, pricingResult, quote.inputs as any, quote.id)
->>>>>>> 4df509acad37a240953620813817f426c2f75c5d
 
     await emailProvider.sendEmail(to, `Updated Quote - ${quote.partner.name}`, html, cc)
 
