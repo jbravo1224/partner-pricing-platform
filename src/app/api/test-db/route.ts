@@ -24,11 +24,11 @@ export async function GET() {
       quoteCount,
       samplePartners: partners
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Database test error:', error)
     return NextResponse.json({
       success: false,
-      error: error.message,
+      error: error?.message || 'Unknown error',
       database: 'disconnected'
     }, { status: 500 })
   }
