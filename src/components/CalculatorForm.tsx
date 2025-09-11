@@ -311,6 +311,8 @@ export default function CalculatorFormV2() {
     // Apply rush discount (20% surcharge for rush projects)
     const finalTotal = formData.timeline === 'Rush' ? calculatedSubtotal * 1.2 : calculatedSubtotal
     setTotal(finalTotal)
+    
+    // Vercel deployment fix - ensure latest commit is used
 
     // Calculate timeline based on page count
     let baseTimeline = 20 // Base timeline for 1-12 pages
