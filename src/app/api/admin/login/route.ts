@@ -15,8 +15,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Admin not configured' }, { status: 500 })
     }
 
-    // Temporary: Use plain text comparison for debugging
-    const isValid = password === adminPassword
+    // Use bcrypt comparison for security
+    const isValid = await bcrypt.compare(password, adminPassword)
     if (!isValid) {
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 })
     }
