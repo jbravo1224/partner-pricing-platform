@@ -87,7 +87,9 @@ async function sendQuoteEmail(
 
   // Add submitter to CC if configured
   if (emailCfg.ccDefaultSubmitter && inputs && typeof inputs === 'object' && 'email' in inputs) {
-    cc.push((inputs as any).email)
+    if (typeof (inputs as Record<string, any>).email === 'string') {
+      cc.push((inputs as Record<string, any>).email)
+    }
   }
 
   // Add additional CC if allowed and provided
