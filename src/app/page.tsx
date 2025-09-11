@@ -18,26 +18,14 @@ export default function Home() {
                 Public Calculators
               </h2>
               <p className="text-gray-600 mb-6">
-                Access partner-specific pricing calculators
+                Get instant pricing for your website project
               </p>
               <div className="space-y-3">
                 <Link 
                   href="/calculator"
                   className="block w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors"
                 >
-                  New Calculator (Beta)
-                </Link>
-                <Link 
-                  href="/p/acme"
-                  className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  ACME Corporation Calculator
-                </Link>
-                <Link 
-                  href="/p/blue-rocket"
-                  className="block w-full bg-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors"
-                >
-                  Blue Rocket Agency Calculator
+                  Website Pricing Calculator
                 </Link>
               </div>
             </div>
