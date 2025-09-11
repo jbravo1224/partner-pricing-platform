@@ -1,5 +1,5 @@
-import CalculatorFormV2 from '@/components/CalculatorFormV2'
+import CalculatorForm from '@/components/CalculatorForm'
 
 export default function CalculatorPage() {
-  return <CalculatorFormV2 />
+  return <CalculatorForm />
 }

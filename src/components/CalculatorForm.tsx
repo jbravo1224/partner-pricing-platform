@@ -40,7 +40,7 @@ interface PricingItem {
   total: number
 }
 
-export default function CalculatorForm() {
+export default function CalculatorFormV2() {
   const [formData, setFormData] = useState<CalculatorFormData>({
     projectName: '',
     packageSize: 'Simple',
@@ -88,6 +88,37 @@ export default function CalculatorForm() {
   useEffect(() => {
     calculatePricing()
   }, [formData])
+
+  // Show popups when thresholds are reached
+  useEffect(() => {
+    if (formData.templates > 7) {
+      setShowTemplatePopup(true)
+    }
+  }, [formData.templates])
+
+  useEffect(() => {
+    if (formData.pages > 30) {
+      setShowPagePopup(true)
+    }
+  }, [formData.pages])
+
+  useEffect(() => {
+    if (formData.calculators > 0 || formData.configurators > 0) {
+      setShowCalculatorPopup(true)
+    }
+  }, [formData.calculators, formData.configurators])
+
+  useEffect(() => {
+    if (formData.advancedForms > 0) {
+      setShowAdvancedFormsTray(true)
+    }
+  }, [formData.advancedForms])
+
+  useEffect(() => {
+    if (formData.ecommerce) {
+      setShowEcommerceTray(true)
+    }
+  }, [formData.ecommerce])
 
   const calculatePricing = () => {
     const items: PricingItem[] = []
@@ -225,6 +256,16 @@ export default function CalculatorForm() {
     }))
   }
 
+  const handleEcommerceParamChange = (field: keyof typeof formData.ecommerceParams, value: any) => {
+    setFormData(prev => ({
+      ...prev,
+      ecommerceParams: {
+        ...prev.ecommerceParams,
+        [field]: value
+      }
+    }))
+  }
+
   const addCustomFeature = () => {
     setFormData(prev => ({
       ...prev,
@@ -258,11 +299,20 @@ export default function CalculatorForm() {
       emailCC: '',
       templates: 1,
       pages: 5,
+      pageComplexity: 'Simple',
       platform: 'WordPress (CMS)',
       ecommerce: false,
-      design: 'HDM',
-      forms: 1,
+      ecommerceParams: {
+        products: 0,
+        categories: 0,
+        paymentMethods: [],
+        inventory: false
+      },
+      design: 'Grey Matter',
+      forms: 0,
+      integrations: [],
       advancedForms: 0,
+      advancedFormsDescription: '',
       calculators: 0,
       configurators: 0,
       accessibility: 'None',
@@ -278,8 +328,12 @@ export default function CalculatorForm() {
   }
 
   const handleExport = () => {
-    // TODO: Implement quote export
-    console.log('Exporting quote')
+    // TODO: Implement quote export to PDF
+    console.log('Exporting quote to PDF')
+  }
+
+  const handleAdmin = () => {
+    window.location.href = '/admin'
   }
 
   return (
@@ -311,7 +365,10 @@ export default function CalculatorForm() {
               >
                 Reset
               </button>
-              <button className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
+              <button
+                onClick={handleAdmin}
+                className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+              >
                 Admin
               </button>
             </div>
@@ -434,6 +491,21 @@ export default function CalculatorForm() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Page Complexity
+                    <span className="ml-1 text-gray-400 cursor-help">?</span>
+                  </label>
+                  <select
+                    value={formData.pageComplexity}
+                    onChange={(e) => handleInputChange('pageComplexity', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="Simple">Simple</option>
+                    <option value="Standard">Standard</option>
+                    <option value="Complex">Complex</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
                     Platform
                     <span className="ml-1 text-gray-400 cursor-help">?</span>
                   </label>
@@ -457,9 +529,10 @@ export default function CalculatorForm() {
                     onChange={(e) => handleInputChange('design', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
+                    <option value="Grey Matter">Grey Matter</option>
                     <option value="HDM">HDM</option>
-                    <option value="Custom">Custom</option>
-                    <option value="Template">Template</option>
+                    <option value="Transpose">Transpose</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
                 <div>
@@ -530,6 +603,33 @@ export default function CalculatorForm() {
                   </select>
                 </div>
               </div>
+
+              {/* Integrations (only show when forms = 1) */}
+              {formData.forms === 1 && (
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Integrations</label>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    {['HubSpot', 'Salesforce', 'Oracle', 'Other'].map((integration) => (
+                      <label key={integration} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={formData.integrations.includes(integration)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              handleInputChange('integrations', [...formData.integrations, integration])
+                            } else {
+                              handleInputChange('integrations', formData.integrations.filter(i => i !== integration))
+                            }
+                          }}
+                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        />
+                        <span className="ml-2 text-sm text-gray-700">{integration}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="mt-4 flex items-center">
                 <input
                   type="checkbox"
@@ -558,9 +658,91 @@ export default function CalculatorForm() {
               </div>
             </div>
 
+            {/* Advanced Forms Tray */}
+            {showAdvancedFormsTray && (
+              <div className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-blue-500">
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">Advanced Forms Description</h2>
+                <textarea
+                  value={formData.advancedFormsDescription}
+                  onChange={(e) => handleInputChange('advancedFormsDescription', e.target.value)}
+                  placeholder="Describe the advanced forms functionality needed..."
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            )}
+
+            {/* E-commerce Tray */}
+            {showEcommerceTray && (
+              <div className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-green-500">
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">E-commerce Parameters</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Number of Products</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.ecommerceParams.products}
+                      onChange={(e) => handleEcommerceParamChange('products', parseInt(e.target.value) || 0)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Number of Categories</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.ecommerceParams.categories}
+                      onChange={(e) => handleEcommerceParamChange('categories', parseInt(e.target.value) || 0)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Payment Methods</label>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    {['Credit Card', 'PayPal', 'Stripe', 'Square', 'Bank Transfer', 'Other'].map((method) => (
+                      <label key={method} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={formData.ecommerceParams.paymentMethods.includes(method)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              handleEcommerceParamChange('paymentMethods', [...formData.ecommerceParams.paymentMethods, method])
+                            } else {
+                              handleEcommerceParamChange('paymentMethods', formData.ecommerceParams.paymentMethods.filter(m => m !== method))
+                            }
+                          }}
+                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        />
+                        <span className="ml-2 text-sm text-gray-700">{method}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center">
+                  <input
+                    type="checkbox"
+                    id="inventory"
+                    checked={formData.ecommerceParams.inventory}
+                    onChange={(e) => handleEcommerceParamChange('inventory', e.target.checked)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="inventory" className="ml-2 block text-sm text-gray-700">
+                    Inventory Management Required
+                  </label>
+                </div>
+              </div>
+            )}
+
             {/* Custom Features */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Custom features</h2>
+              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+                <p className="text-sm text-yellow-800">
+                  <strong>Important:</strong> If you use this section, we will need to discuss these features and can provide you with a custom price. This will be included in your quote.
+                </p>
+              </div>
               {formData.customFeatures.map((feature, index) => (
                 <div key={index} className="flex gap-3 mb-3">
                   <input
@@ -642,6 +824,70 @@ export default function CalculatorForm() {
             </div>
           </div>
         </div>
+
+        {/* Popups */}
+        {/* Template Popup */}
+        {showTemplatePopup && (
+          <div className="fixed bottom-4 right-4 bg-white border border-gray-300 rounded-lg shadow-lg p-4 max-w-sm z-50">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="font-semibold text-gray-900">Template Notice</h3>
+              <button
+                onClick={() => setShowTemplatePopup(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ×
+              </button>
+            </div>
+            <p className="text-sm text-gray-700 mb-3">
+              You've selected {formData.templates} templates. For projects with more than 7 templates, we'll need to finalize the scope after you submit this estimate.
+            </p>
+            <p className="text-xs text-gray-500">
+              This message will appear on your exported PDF quote.
+            </p>
+          </div>
+        )}
+
+        {/* Page Popup */}
+        {showPagePopup && (
+          <div className="fixed bottom-4 right-4 bg-white border border-gray-300 rounded-lg shadow-lg p-4 max-w-sm z-50">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="font-semibold text-gray-900">Page Count Notice</h3>
+              <button
+                onClick={() => setShowPagePopup(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ×
+              </button>
+            </div>
+            <p className="text-sm text-gray-700 mb-3">
+              You've selected {formData.pages} pages. For projects with more than 30 pages, we'll need to finalize the scope after you submit this estimate.
+            </p>
+            <p className="text-xs text-gray-500">
+              This message will appear on your exported PDF quote.
+            </p>
+          </div>
+        )}
+
+        {/* Calculator/Configurator Popup */}
+        {showCalculatorPopup && (
+          <div className="fixed bottom-4 right-4 bg-white border border-gray-300 rounded-lg shadow-lg p-4 max-w-sm z-50">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="font-semibold text-gray-900">Scope Discussion Required</h3>
+              <button
+                onClick={() => setShowCalculatorPopup(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ×
+              </button>
+            </div>
+            <p className="text-sm text-gray-700 mb-3">
+              You've selected calculators or configurators. Please finish submitting this form and then ping John Helbling on Slack so we can finish scoping this out.
+            </p>
+            <p className="text-xs text-gray-500">
+              This message will appear on your exported PDF quote.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )
