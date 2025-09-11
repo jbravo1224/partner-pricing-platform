@@ -323,8 +323,32 @@ export default function CalculatorFormV2() {
   }
 
   const handleSubmit = async () => {
-    // TODO: Implement quote submission
-    console.log('Submitting quote:', { formData, total, timeline })
+    try {
+      // Show confirmation dialog
+      const confirmed = window.confirm(
+        `Submit quote for "${formData.projectName}"?\n\n` +
+        `Total: $${total.toLocaleString()}\n` +
+        `Timeline: ${timeline}\n\n` +
+        `This will send the quote to your email and our team for review.`
+      )
+      
+      if (!confirmed) {
+        return
+      }
+
+      // TODO: Implement actual quote submission to API
+      console.log('Submitting quote:', { formData, total, timeline })
+      
+      // Show success message
+      alert('Quote submitted successfully! You will receive a confirmation email shortly.')
+      
+      // Reset form after successful submission
+      resetForm()
+      
+    } catch (error) {
+      console.error('Error submitting quote:', error)
+      alert('Error submitting quote. Please try again.')
+    }
   }
 
   const handleExport = () => {

@@ -27,10 +27,14 @@ export default function UserQuotes() {
       loadUserQuotes(savedEmail)
     } else {
       const email = prompt('Please enter your email to view your quotes:')
-      if (email) {
+      if (email && email.trim()) {
         setUserEmail(email)
         localStorage.setItem('userEmail', email)
         loadUserQuotes(email)
+      } else {
+        // User cancelled or entered empty email, redirect back to home
+        setLoading(false)
+        window.location.href = '/'
       }
     }
   }, [])
