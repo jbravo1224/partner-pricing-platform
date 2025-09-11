@@ -3,33 +3,67 @@
 import { useState, useEffect } from 'react'
 
 interface CalculatorFormData {
+  // Project Overview
   projectName: string
-  packageSize: string
+  projectType: string
   projectDescription: string
-  submittedBy: string
-  submitterEmail: string
-  emailCC: string
-  templates: number
+  timeline: string
+  
+  // Website Foundation
   pages: number
-  pageComplexity: string
+  templates: number
   platform: string
+  
+  // Custom Application (if platform is custom)
+  customApp: {
+    appType: string
+    userAccounts: boolean
+    database: boolean
+    apiIntegrations: number
+    mobileApp: boolean
+    complexity: string
+  }
+  
+  // E-commerce
   ecommerce: boolean
   ecommerceParams: {
     products: number
-    categories: number
-    paymentMethods: string[]
-    inventory: boolean
+    paymentMethod: string
+    paymentRedirect: boolean
   }
-  design: string
+  
+  // Interactive Features
   forms: number
-  integrations: string[]
   advancedForms: number
-  advancedFormsDescription: string
   calculators: number
   configurators: number
+  
+  // Integrations & Tools
+  crmIntegration: boolean
+  emailMarketing: boolean
+  advancedTracking: boolean
+  
+  // Additional Services
+  designAndBranding: {
+    logoDesign: boolean
+    customDesign: boolean
+    photography: boolean
+    brandIdentity: boolean
+  }
+  contentAndMarketing: {
+    copywriting: boolean
+    contentStrategy: boolean
+    seoSetup: boolean
+    socialMedia: boolean
+  }
   accessibility: string
-  rush: boolean
+  performanceOptimization: boolean
   customFeatures: Array<{ name: string; price: number }>
+  
+  // Contact Info
+  submittedBy: string
+  submitterEmail: string
+  emailCC: string
   notes: string
 }
 
@@ -42,33 +76,67 @@ interface PricingItem {
 
 export default function CalculatorFormV2() {
   const [formData, setFormData] = useState<CalculatorFormData>({
+    // Project Overview
     projectName: '',
-    packageSize: 'Simple',
+    projectType: 'Marketing Website',
     projectDescription: '',
-    submittedBy: '',
-    submitterEmail: '',
-    emailCC: '',
-    templates: 1,
+    timeline: 'Standard',
+    
+    // Website Foundation
     pages: 5,
-    pageComplexity: 'Simple',
-    platform: 'WordPress (CMS)',
+    templates: 1,
+    platform: 'WordPress',
+    
+    // Custom Application
+    customApp: {
+      appType: '',
+      userAccounts: false,
+      database: false,
+      apiIntegrations: 0,
+      mobileApp: false,
+      complexity: 'Simple'
+    },
+    
+    // E-commerce
     ecommerce: false,
     ecommerceParams: {
       products: 0,
-      categories: 0,
-      paymentMethods: [],
-      inventory: false
+      paymentMethod: 'Stripe/PayPal',
+      paymentRedirect: false
     },
-    design: 'Grey Matter',
+    
+    // Interactive Features
     forms: 0,
-    integrations: [],
     advancedForms: 0,
-    advancedFormsDescription: '',
     calculators: 0,
     configurators: 0,
-    accessibility: 'None',
-    rush: false,
+    
+    // Integrations & Tools
+    crmIntegration: false,
+    emailMarketing: false,
+    advancedTracking: false,
+    
+    // Additional Services
+    designAndBranding: {
+      logoDesign: false,
+      customDesign: false,
+      photography: false,
+      brandIdentity: false
+    },
+    contentAndMarketing: {
+      copywriting: false,
+      contentStrategy: false,
+      seoSetup: false,
+      socialMedia: false
+    },
+    accessibility: 'Basic',
+    performanceOptimization: false,
     customFeatures: [],
+    
+    // Contact Info
+    submittedBy: '',
+    submitterEmail: '',
+    emailCC: '',
     notes: ''
   })
 
@@ -83,6 +151,7 @@ export default function CalculatorFormV2() {
   const [showCalculatorPopup, setShowCalculatorPopup] = useState(false)
   const [showAdvancedFormsTray, setShowAdvancedFormsTray] = useState(false)
   const [showEcommerceTray, setShowEcommerceTray] = useState(false)
+  const [showCustomAppTray, setShowCustomAppTray] = useState(false)
 
   // Calculate pricing when form data changes
   useEffect(() => {
@@ -107,6 +176,14 @@ export default function CalculatorFormV2() {
       setShowCalculatorPopup(true)
     }
   }, [formData.calculators, formData.configurators])
+
+  useEffect(() => {
+    if (formData.platform === 'Custom Application') {
+      setShowCustomAppTray(true)
+    } else {
+      setShowCustomAppTray(false)
+    }
+  }, [formData.platform])
 
   useEffect(() => {
     if (formData.advancedForms > 0) {
