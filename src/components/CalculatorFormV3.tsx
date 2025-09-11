@@ -906,8 +906,491 @@ export default function CalculatorFormV3() {
               )}
             </div>
 
-            {/* Continue with other sections... */}
-            {/* This is getting very long, so I'll continue in the next part */}
+            {/* Section 3: E-commerce */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6">3. E-commerce</h2>
+              
+              <div className="flex items-center mb-4">
+                <input
+                  type="checkbox"
+                  id="ecommerce"
+                  checked={formData.ecommerce}
+                  onChange={(e) => handleInputChange('ecommerce', e.target.checked)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label htmlFor="ecommerce" className="ml-2 block text-sm font-medium text-gray-700">
+                  Enable E-commerce
+                </label>
+              </div>
+
+              {/* E-commerce Tray */}
+              {showEcommerceTray && (
+                <div className="p-4 bg-gray-50 rounded-lg border">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Number of Products
+                      </label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={formData.ecommerceParams.products}
+                        onChange={(e) => handleEcommerceParamChange('products', parseInt(e.target.value) || 0)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Payment Method
+                      </label>
+                      <select
+                        value={formData.ecommerceParams.paymentMethod}
+                        onChange={(e) => handleEcommerceParamChange('paymentMethod', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      >
+                        <option value="Stripe/PayPal">Stripe/PayPal</option>
+                        <option value="Square">Square</option>
+                        <option value="Authorize.net">Authorize.net</option>
+                        <option value="Custom Gateway">Custom Gateway</option>
+                      </select>
+                    </div>
+
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id="paymentRedirect"
+                        checked={formData.ecommerceParams.paymentRedirect}
+                        onChange={(e) => handleEcommerceParamChange('paymentRedirect', e.target.checked)}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="paymentRedirect" className="ml-2 block text-sm text-gray-700">
+                        Payment Redirect (instead of embedded)
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                    <p className="text-sm text-blue-800">
+                      <strong>Note:</strong> We can discuss payment processor options and integration methods 
+                      during the project planning phase to ensure the best solution for your needs.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Section 4: Interactive Features */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6">4. Interactive Features</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Contact Forms
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={formData.forms}
+                    onChange={(e) => handleInputChange('forms', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Advanced Forms
+                    <span className="text-gray-500 ml-1" title="Multi-step forms with conditional logic">
+                      (?)
+                    </span>
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={formData.advancedForms}
+                    onChange={(e) => handleInputChange('advancedForms', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Calculators
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={formData.calculators}
+                    onChange={(e) => handleInputChange('calculators', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Configurators
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={formData.configurators}
+                    onChange={(e) => handleInputChange('configurators', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              {/* Advanced Forms Tray */}
+              {showAdvancedFormsTray && (
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg border">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Advanced Forms Include:</h3>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li>• Multi-step form flows</li>
+                    <li>• Conditional logic and field dependencies</li>
+                    <li>• File upload capabilities</li>
+                    <li>• Progress indicators</li>
+                    <li>• Form validation and error handling</li>
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Section 5: Integrations & Tools */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6">5. Integrations & Tools</h2>
+              
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="crmIntegration"
+                    checked={formData.crmIntegration}
+                    onChange={(e) => handleInputChange('crmIntegration', e.target.checked)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="crmIntegration" className="ml-2 block text-sm font-medium text-gray-700">
+                    CRM Integration
+                    <span className="text-gray-500 ml-1" title="Connect forms to HubSpot, Salesforce, or other CRM systems">
+                      (?)
+                    </span>
+                  </label>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="emailMarketing"
+                    checked={formData.emailMarketing}
+                    onChange={(e) => handleInputChange('emailMarketing', e.target.checked)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="emailMarketing" className="ml-2 block text-sm font-medium text-gray-700">
+                    Email Marketing Integration
+                    <span className="text-gray-500 ml-1" title="Newsletter signups, automated email sequences, and email campaign management">
+                      (?)
+                    </span>
+                  </label>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="advancedTracking"
+                    checked={formData.advancedTracking}
+                    onChange={(e) => handleInputChange('advancedTracking', e.target.checked)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="advancedTracking" className="ml-2 block text-sm font-medium text-gray-700">
+                    Advanced Analytics Setup
+                    <span className="text-gray-500 ml-1" title="Custom event tracking, conversion funnels, and detailed user behavior analytics">
+                      (?)
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 6: Additional Services */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6">6. Additional Services</h2>
+              
+              {/* Design & Branding */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Design & Branding</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="logoDesign"
+                      checked={formData.designAndBranding.logoDesign}
+                      onChange={(e) => handleDesignAndBrandingChange('logoDesign', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="logoDesign" className="ml-2 block text-sm font-medium text-gray-700">
+                      Logo Design
+                      <span className="text-gray-500 ml-1" title="Custom logo design and brand mark creation">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="customDesign"
+                      checked={formData.designAndBranding.customDesign}
+                      onChange={(e) => handleDesignAndBrandingChange('customDesign', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="customDesign" className="ml-2 block text-sm font-medium text-gray-700">
+                      Custom Design
+                      <span className="text-gray-500 ml-1" title="Fully custom website design from scratch">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="photography"
+                      checked={formData.designAndBranding.photography}
+                      onChange={(e) => handleDesignAndBrandingChange('photography', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="photography" className="ml-2 block text-sm font-medium text-gray-700">
+                      Custom Photography
+                      <span className="text-gray-500 ml-1" title="Professional photography for your website">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="brandIdentity"
+                      checked={formData.designAndBranding.brandIdentity}
+                      onChange={(e) => handleDesignAndBrandingChange('brandIdentity', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="brandIdentity" className="ml-2 block text-sm font-medium text-gray-700">
+                      Full Brand Identity
+                      <span className="text-gray-500 ml-1" title="Complete brand identity package including logo, colors, typography, and style guide">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Content & Marketing */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Content & Marketing</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="copywriting"
+                      checked={formData.contentAndMarketing.copywriting}
+                      onChange={(e) => handleContentAndMarketingChange('copywriting', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="copywriting" className="ml-2 block text-sm font-medium text-gray-700">
+                      Copywriting
+                      <span className="text-gray-500 ml-1" title="Professional copywriting for key pages">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="contentStrategy"
+                      checked={formData.contentAndMarketing.contentStrategy}
+                      onChange={(e) => handleContentAndMarketingChange('contentStrategy', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="contentStrategy" className="ml-2 block text-sm font-medium text-gray-700">
+                      Content Strategy
+                      <span className="text-gray-500 ml-1" title="Full content strategy and writing for all pages">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="seoSetup"
+                      checked={formData.contentAndMarketing.seoSetup}
+                      onChange={(e) => handleContentAndMarketingChange('seoSetup', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="seoSetup" className="ml-2 block text-sm font-medium text-gray-700">
+                      SEO Setup
+                      <span className="text-gray-500 ml-1" title="Advanced SEO setup and optimization">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="socialMedia"
+                      checked={formData.contentAndMarketing.socialMedia}
+                      onChange={(e) => handleContentAndMarketingChange('socialMedia', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="socialMedia" className="ml-2 block text-sm font-medium text-gray-700">
+                      Social Media Integration
+                      <span className="text-gray-500 ml-1" title="Social media feeds and sharing integration">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Technical Services */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Technical Services</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Accessibility Compliance
+                    </label>
+                    <select
+                      value={formData.accessibility}
+                      onChange={(e) => handleInputChange('accessibility', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="Basic">Basic (Included)</option>
+                      <option value="WCAG AA">WCAG AA Compliance</option>
+                      <option value="WCAG AAA">WCAG AAA Compliance</option>
+                    </select>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="performanceOptimization"
+                      checked={formData.performanceOptimization}
+                      onChange={(e) => handleInputChange('performanceOptimization', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="performanceOptimization" className="ml-2 block text-sm font-medium text-gray-700">
+                      Advanced Performance Optimization
+                      <span className="text-gray-500 ml-1" title="Script minification, lazy loading, code splitting, and performance optimization">
+                        (?)
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Custom Features */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Custom Features</h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Put in your requirement and we'll have a conversation about it.
+                </p>
+                
+                {formData.customFeatures.map((feature, index) => (
+                  <div key={index} className="flex gap-4 mb-4">
+                    <input
+                      type="text"
+                      placeholder="Feature description"
+                      value={feature.name}
+                      onChange={(e) => updateCustomFeature(index, 'name', e.target.value)}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Price"
+                      value={feature.price}
+                      onChange={(e) => updateCustomFeature(index, 'price', parseInt(e.target.value) || 0)}
+                      className="w-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                      onClick={() => removeCustomFeature(index)}
+                      className="px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+                
+                <button
+                  onClick={addCustomFeature}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  Add Custom Feature
+                </button>
+              </div>
+            </div>
+
+            {/* Section 7: Contact Information */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6">7. Contact Information</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Your Name *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.submittedBy}
+                    onChange={(e) => handleInputChange('submittedBy', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter your name"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    value={formData.submitterEmail}
+                    onChange={(e) => handleInputChange('submitterEmail', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="your@email.com"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    CC Email (optional)
+                  </label>
+                  <input
+                    type="email"
+                    value={formData.emailCC}
+                    onChange={(e) => handleInputChange('emailCC', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Additional email to receive quote"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Additional Notes
+                  </label>
+                  <textarea
+                    value={formData.notes}
+                    onChange={(e) => handleInputChange('notes', e.target.value)}
+                    rows={4}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Any additional requirements or questions..."
+                  />
+                </div>
+              </div>
+            </div>
             
           </div>
 
