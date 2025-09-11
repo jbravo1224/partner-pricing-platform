@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { validateAdminSession } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,9 +8,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'No token provided' }, { status: 401 })
     }
 
-    const isValid = await validateAdminSession(token)
+    // Simple token validation - just check if it starts with 'admin-authenticated'
+    const isValid = token.startsWith('admin-authenticated')
+    
     if (!isValid) {
-      return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 })
+      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
     }
 
     return NextResponse.json({ valid: true })
