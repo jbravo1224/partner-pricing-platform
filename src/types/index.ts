@@ -36,8 +36,9 @@ export interface PricingRule {
   id: string;
   type: 'setSubtotalFromBase' | 'setSubtotalFromMatrix' | 'add' | 'multiply';
   condition?: any; // JSONLogic condition
-  value?: number | string;
+  value?: number | string | { row?: string; col?: string }; // Can be a value or matrix coordinates
   expression?: any; // JSONLogic expression
+  description?: string; // Optional description for line items
 }
 
 export interface PricingConfig {
