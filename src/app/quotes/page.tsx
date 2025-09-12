@@ -54,18 +54,6 @@ export default function UserQuotes() {
             pages: 8,
             forms: 1
           }
-        },
-        {
-          id: '2',
-          projectName: 'E-commerce Site',
-          total: 5500,
-          status: 'approved',
-          createdAt: new Date(Date.now() - 86400000).toISOString(),
-          formData: {
-            templates: 3,
-            pages: 15,
-            ecommerce: true
-          }
         }
       ]
       setQuotes(mockQuotes)
@@ -73,26 +61,6 @@ export default function UserQuotes() {
       console.error('Error loading user quotes:', error)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const getStatusColor = (status: UserQuote['status']) => {
-    switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800'
-      case 'approved': return 'bg-green-100 text-green-800'
-      case 'modified': return 'bg-blue-100 text-blue-800'
-      case 'rejected': return 'bg-red-100 text-red-800'
-      default: return 'bg-gray-100 text-gray-800'
-    }
-  }
-
-  const getStatusText = (status: UserQuote['status']) => {
-    switch (status) {
-      case 'pending': return 'Under Review'
-      case 'approved': return 'Approved'
-      case 'modified': return 'Modified by Admin'
-      case 'rejected': return 'Not Approved'
-      default: return status
     }
   }
 
@@ -132,7 +100,7 @@ export default function UserQuotes() {
       yPosition += 8
       doc.text(`Submitted: ${new Date(quote.createdAt).toLocaleDateString()}`, 20, yPosition)
       yPosition += 8
-      doc.text(`Status: ${getStatusText(quote.status)}`, 20, yPosition)
+      doc.text(`Status: ${quote.status}`, 20, yPosition)
       yPosition += 15
 
       // Project Details
@@ -160,20 +128,6 @@ export default function UserQuotes() {
       doc.text(`Total: $${quote.total.toLocaleString()}`, 20, yPosition)
       yPosition += 20
 
-      // Admin Notes (if any)
-      if (quote.notes) {
-        doc.setFontSize(14)
-        doc.setFont('helvetica', 'bold')
-        doc.text('Admin Notes:', 20, yPosition)
-        yPosition += 10
-
-        doc.setFontSize(12)
-        doc.setFont('helvetica', 'normal')
-        const splitNotes = doc.splitTextToSize(quote.notes, pageWidth - 40)
-        doc.text(splitNotes, 20, yPosition)
-        yPosition += splitNotes.length * 6 + 10
-      }
-
       // Footer
       const footerY = pageHeight - 30
       doc.setFontSize(10)
@@ -200,7 +154,7 @@ export default function UserQuotes() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-        <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex justify-between items-center">
             <div>
@@ -239,113 +193,23 @@ export default function UserQuotes() {
                     <p className="text-gray-600">
                       Submitted: {new Date(quote.createdAt).toLocaleDateString()}
                     </p>
-                    {quote.modifiedAt && (
-                      <p className="text-gray-600">
-                        Last Modified: {new Date(quote.modifiedAt).toLocaleDateString()}
-                      </p>
-                    )}
                   </div>
                   <div className="text-right">
-                    <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusColor(quote.status)}`}>
-                      {getStatusText(quote.status)}
-                    </span>
                     <p className="text-2xl font-bold text-gray-900 mt-2">
                       ${quote.total.toLocaleString()}
                     </p>
+                    <button
+                      onClick={() => generatePDF(quote)}
+                      className="mt-2 px-3 py-1 bg-gray-600 text-white text-sm rounded-md hover:bg-gray-700 transition-colors"
+                    >
+                      Download PDF
+                    </button>
                   </div>
                 </div>
-
-                {quote.notes && (
-                  <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-md">
-                    <h3 className="font-semibold text-blue-900 mb-2">Admin Notes:</h3>
-                    <p className="text-blue-800">{quote.notes}</p>
-                  </div>
-                )}
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                  <div className="bg-gray-50 p-4 rounded-md">
-                    <h3 className="font-semibold text-gray-900 mb-2">Project Details</h3>
-                    <div className="space-y-1 text-sm text-gray-600">
-                      <p>Templates: {quote.formData.templates || 0}</p>
-                      <p>Pages: {quote.formData.pages || 0}</p>
-                      <p>Forms: {quote.formData.forms || 0}</p>
-                      {quote.formData.ecommerce && <p>E-commerce: Yes</p>}
-                    </div>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-md">
-                    <h3 className="font-semibold text-gray-900 mb-2">Quote ID</h3>
-                    <p className="text-sm text-gray-600 font-mono">{quote.id}</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-md">
-                    <h3 className="font-semibold text-gray-900 mb-2">Actions</h3>
-                    <div className="space-y-2">
-                      <button
-                        onClick={() => generatePDF(quote)}
-                        className="w-full px-3 py-2 bg-gray-600 text-white text-sm rounded-md hover:bg-gray-700 transition-colors"
-                      >
-                        Download PDF
-                      </button>
-                      <button
-                        onClick={() => {
-                          // TODO: Implement email functionality
-                          alert('Quote details sent to your email!')
-                        }}
-                        className="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
-                      >
-                        Email Quote
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {quote.status === 'modified' && (
-                  <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
-                    <h3 className="font-semibold text-yellow-900 mb-2">Quote Modified</h3>
-                    <p className="text-yellow-800">
-                      This quote has been modified by our team. Please review the changes and contact us if you have any questions.
-                    </p>
-                  </div>
-                )}
               </div>
             ))}
           </div>
         )}
-
-        <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Need Help?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Contact Support</h3>
-              <p className="text-gray-600 text-sm mb-2">
-                Have questions about your quote? Our team is here to help.
-              </p>
-              <button
-                onClick={() => {
-                  // TODO: Implement contact functionality
-                  alert('Contact form coming soon!')
-                }}
-                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
-              >
-                Contact Support
-              </button>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Create New Quote</h3>
-              <p className="text-gray-600 text-sm mb-2">
-                Need a quote for a different project? Start a new estimate.
-              </p>
-              <Link
-                href="/calculator"
-                className="inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              >
-                New Quote
-              </Link>
-            </div>
-          </div>
-        </div>
-        </div>
       </div>
     </div>
   )
