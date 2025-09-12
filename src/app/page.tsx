@@ -15,18 +15,17 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                Public Calculators
+                Partner Calculators
               </h2>
               <p className="text-gray-600 mb-6">
-                Get instant pricing for your website project
+                Access your personalized project calculator through your partner link
               </p>
               <div className="space-y-3">
-                <Link 
-                  href="/calculator"
-                  className="block w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  Website Pricing Calculator
-                </Link>
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <p className="text-sm text-yellow-800">
+                    <strong>Note:</strong> Calculators are partner-specific. Please use the link provided by your partner to access your personalized calculator.
+                  </p>
+                </div>
                 <Link 
                   href="/quotes"
                   className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"

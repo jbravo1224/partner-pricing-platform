@@ -91,6 +91,24 @@ export default function AdminPartners() {
     }
   }
 
+  const copyPartnerLink = async (partnerSlug: string) => {
+    const link = `${window.location.origin}/p/${partnerSlug}`
+    try {
+      await navigator.clipboard.writeText(link)
+      // You could add a toast notification here
+      alert('Partner link copied to clipboard!')
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea')
+      textArea.value = link
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      alert('Partner link copied to clipboard!')
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -139,6 +157,9 @@ export default function AdminPartners() {
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Quotes
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Calculator Link
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Created
@@ -202,6 +223,20 @@ export default function AdminPartners() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {partner._count.quotes}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-mono text-xs bg-gray-100 px-2 py-1 rounded">
+                              /p/{partner.slug}
+                            </span>
+                            <button
+                              onClick={() => copyPartnerLink(partner.slug)}
+                              className="text-blue-600 hover:text-blue-900 text-xs"
+                              title="Copy calculator link"
+                            >
+                              📋 Copy
+                            </button>
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {new Date(partner.createdAt).toLocaleDateString()}

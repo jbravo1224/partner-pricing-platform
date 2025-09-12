@@ -212,6 +212,12 @@ export default function CalculatorFormV2() {
   const [showCalculatorTray, setShowCalculatorTray] = useState(false)
   const [showConfiguratorTray, setShowConfiguratorTray] = useState(false)
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null)
+  const [showQuoteSuccessPopup, setShowQuoteSuccessPopup] = useState(false)
+  const [contactFormData, setContactFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
 
   // Calculate pricing when form data changes
   useEffect(() => {
@@ -543,8 +549,8 @@ export default function CalculatorFormV2() {
       // TODO: Implement actual quote submission to API
       console.log('Submitting quote:', { formData, total, timeline })
       
-      // Show success message
-      alert('Quote submitted successfully! You will receive a confirmation email shortly.')
+      // Show success popup with contact form
+      setShowQuoteSuccessPopup(true)
       
       // Reset form after successful submission
       resetForm()
@@ -558,6 +564,38 @@ export default function CalculatorFormV2() {
   const handleExport = () => {
     // TODO: Implement quote export to PDF
     console.log('Exporting quote to PDF')
+  }
+
+  const handleContactFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      // Send contact form to john@hdmcincy.com
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: 'john@hdmcincy.com',
+          subject: 'New Quote Inquiry',
+          name: contactFormData.name,
+          email: contactFormData.email,
+          message: contactFormData.message,
+          quoteData: formData
+        }),
+      })
+
+      if (response.ok) {
+        alert('Message sent successfully! John will get back to you soon.')
+        setShowQuoteSuccessPopup(false)
+        setContactFormData({ name: '', email: '', message: '' })
+      } else {
+        alert('Error sending message. Please try again.')
+      }
+    } catch (error) {
+      console.error('Error sending contact form:', error)
+      alert('Error sending message. Please try again.')
+    }
   }
 
   const handleAdmin = () => {
@@ -1400,6 +1438,81 @@ export default function CalculatorFormV2() {
             <p className="text-xs text-gray-500">
               This message will appear on your exported PDF quote.
             </p>
+          </div>
+        )}
+
+        {/* Quote Success Popup with Contact Form */}
+        {showQuoteSuccessPopup && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Quote Submitted Successfully!</h3>
+                <button
+                  onClick={() => setShowQuoteSuccessPopup(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  ×
+                </button>
+              </div>
+              <p className="text-sm text-gray-700 mb-4">
+                Thank you for your interest! John will review your quote and get back to you soon. 
+                You can also send him a message directly below.
+              </p>
+              
+              <form onSubmit={handleContactFormSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    value={contactFormData.name}
+                    onChange={(e) => setContactFormData(prev => ({ ...prev, name: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Your Email
+                  </label>
+                  <input
+                    type="email"
+                    value={contactFormData.email}
+                    onChange={(e) => setContactFormData(prev => ({ ...prev, email: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Message (Optional)
+                  </label>
+                  <textarea
+                    value={contactFormData.message}
+                    onChange={(e) => setContactFormData(prev => ({ ...prev, message: e.target.value }))}
+                    rows={3}
+                    placeholder="Any additional questions or details..."
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  >
+                    Send Message
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowQuoteSuccessPopup(false)}
+                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </div>
