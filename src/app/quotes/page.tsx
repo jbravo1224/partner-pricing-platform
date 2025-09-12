@@ -101,7 +101,8 @@ export default function UserQuotes() {
       // Dynamic import to avoid SSR issues
       const { jsPDF } = await import('jspdf')
       
-      const doc = new jsPDF()
+      // Type assertion for jsPDF
+      const doc = new (jsPDF as any)()
       const pageWidth = doc.internal.pageSize.getWidth()
       const pageHeight = doc.internal.pageSize.getHeight()
       let yPosition = 20
