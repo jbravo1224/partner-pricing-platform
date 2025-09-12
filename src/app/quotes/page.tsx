@@ -75,16 +75,36 @@ export default function UserQuotes() {
       const pageHeight = doc.internal.pageSize.getHeight()
       let yPosition = 20
 
-      // Header
-      doc.setFontSize(24)
+      // Header with Logo
+      // Add logo placeholder (you can replace this with actual logo image)
+      doc.setFontSize(20)
       doc.setFont('helvetica', 'bold')
-      doc.text('Website Quote', pageWidth / 2, yPosition, { align: 'center' })
-      yPosition += 15
-
+      doc.setTextColor(0, 51, 102) // Dark blue color
+      doc.text('HDM', pageWidth / 2, yPosition, { align: 'center' })
+      yPosition += 8
+      
       doc.setFontSize(12)
       doc.setFont('helvetica', 'normal')
+      doc.setTextColor(0, 102, 153) // Lighter blue color
+      doc.text('HELBLING DIGITAL MEDIA', pageWidth / 2, yPosition, { align: 'center' })
+      yPosition += 6
+      
+      doc.setFontSize(8)
+      doc.setTextColor(0, 51, 102) // Dark blue color
+      doc.text('INNOVATE. SCALE. GROW.', pageWidth / 2, yPosition, { align: 'center' })
+      yPosition += 15
+      
+      // Quote title
+      doc.setFontSize(18)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(0, 0, 0) // Black
+      doc.text('Website Quote', pageWidth / 2, yPosition, { align: 'center' })
+      yPosition += 12
+
+      doc.setFontSize(10)
+      doc.setFont('helvetica', 'normal')
       doc.text(`Client: ${userEmail}`, pageWidth / 2, yPosition, { align: 'center' })
-      yPosition += 8
+      yPosition += 6
       doc.text(`Generated: ${new Date().toLocaleDateString()}`, pageWidth / 2, yPosition, { align: 'center' })
       yPosition += 20
 
@@ -132,7 +152,9 @@ export default function UserQuotes() {
       const footerY = pageHeight - 30
       doc.setFontSize(10)
       doc.setFont('helvetica', 'normal')
-      doc.text('Helbling Digital Media LLC | Website Development & Design', pageWidth / 2, footerY, { align: 'center' })
+      doc.setTextColor(0, 51, 102) // Dark blue color
+      doc.text('HDM HELBLING DIGITAL MEDIA | Website Development & Design', pageWidth / 2, footerY, { align: 'center' })
+      doc.setTextColor(0, 0, 0) // Black
       doc.text('Email: john@hdmcincy.com | Phone: 513-668-7344', pageWidth / 2, footerY + 8, { align: 'center' })
       doc.text('This quote is valid for 30 days from the date of generation.', pageWidth / 2, footerY + 16, { align: 'center' })
 
