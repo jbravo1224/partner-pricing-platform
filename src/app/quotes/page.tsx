@@ -132,7 +132,7 @@ export default function UserQuotes() {
       const footerY = pageHeight - 30
       doc.setFontSize(10)
       doc.setFont('helvetica', 'normal')
-      doc.text('HDM Cincinnati | Website Development & Design', pageWidth / 2, footerY, { align: 'center' })
+      doc.text('Helbling Digital Media LLC | Website Development & Design', pageWidth / 2, footerY, { align: 'center' })
       doc.text('Email: john@hdmcincy.com | Phone: 513-668-7344', pageWidth / 2, footerY + 8, { align: 'center' })
       doc.text('This quote is valid for 30 days from the date of generation.', pageWidth / 2, footerY + 16, { align: 'center' })
 
