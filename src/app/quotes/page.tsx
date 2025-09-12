@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import HDMLogo from '@/components/HDMLogo'
 
 interface UserQuote {
   id: string
@@ -75,7 +76,7 @@ export default function UserQuotes() {
       const pageHeight = doc.internal.pageSize.getHeight()
       let yPosition = 20
 
-      // Header with Logo
+      // Header with Logo (Text-based for PDF)
       doc.setFontSize(20)
       doc.setFont('helvetica', 'bold')
       doc.setTextColor(14, 44, 61) // HDM Primary color #0e2c3d
@@ -179,11 +180,7 @@ export default function UserQuotes() {
       <header className="bg-white border-b border-gray-200 py-6">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
-            <div>
-              <div className="text-2xl font-bold mb-1" style={{color: '#0e2c3d'}}>HDM</div>
-              <div className="text-sm font-medium" style={{color: '#0e2c3d'}}>HELBLING DIGITAL MEDIA</div>
-              <div className="text-xs font-semibold uppercase tracking-wider mt-1" style={{color: '#0e2c3d'}}>INNOVATE. SCALE. GROW.</div>
-            </div>
+            <HDMLogo size="medium" />
             <Link
               href="/"
               className="text-gray-600 hover:text-gray-900 transition-colors"

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import HDMLogo from '@/components/HDMLogo'
 
 export default function Home() {
   return (
@@ -7,11 +8,7 @@ export default function Home() {
       <header className="bg-white border-b border-gray-200 py-8">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="inline-block">
-              <div className="text-4xl font-bold mb-2" style={{color: '#0e2c3d'}}>HDM</div>
-              <div className="text-lg font-medium" style={{color: '#0e2c3d'}}>HELBLING DIGITAL MEDIA</div>
-              <div className="text-sm font-semibold uppercase tracking-wider mt-1" style={{color: '#0e2c3d'}}>INNOVATE. SCALE. GROW.</div>
-            </div>
+            <HDMLogo size="large" className="justify-center" />
           </div>
         </div>
       </header>
