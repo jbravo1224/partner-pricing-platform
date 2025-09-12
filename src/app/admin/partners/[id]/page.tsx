@@ -211,7 +211,7 @@ export default function EditPartnerPage() {
           <h2 className="text-lg font-medium text-gray-900 mb-4">Basic Information</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                 Partner Name
               </label>
               <input
@@ -219,12 +219,13 @@ export default function EditPartnerPage() {
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleNameChange(e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Enter partner company name"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
                 required
               />
             </div>
             <div>
-              <label htmlFor="slug" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-2">
                 URL Slug
               </label>
               <input
@@ -232,7 +233,8 @@ export default function EditPartnerPage() {
                 id="slug"
                 value={formData.slug}
                 onChange={(e) => handleInputChange('slug', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="partner-slug"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
                 required
               />
               <p className="mt-1 text-sm text-gray-500">
