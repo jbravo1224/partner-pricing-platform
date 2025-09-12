@@ -76,7 +76,6 @@ export default function UserQuotes() {
       let yPosition = 20
 
       // Header with Logo
-      // Add logo placeholder (you can replace this with actual logo image)
       doc.setFontSize(20)
       doc.setFont('helvetica', 'bold')
       doc.setTextColor(0, 51, 102) // Dark blue color
@@ -211,46 +210,47 @@ export default function UserQuotes() {
             </div>
           </div>
 
-        {quotes.length === 0 ? (
-          <div className="hdm-card p-12 text-center">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">No Quotes Found</h2>
-            <p className="text-gray-600 mb-6">
-              You haven't submitted any quotes yet. Create your first quote to get started!
-            </p>
-            <Link
-              href="/calculator"
-              className="inline-flex px-6 py-3 hdm-button-primary rounded-md transition-colors"
-            >
-              Create Your First Quote
-            </Link>
-          </div>
-        ) : (
-          <div className="space-y-6">
-            {quotes.map((quote) => (
-              <div key={quote.id} className="hdm-card p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h2 className="text-xl font-semibold text-gray-900">{quote.projectName}</h2>
-                    <p className="text-gray-600">
-                      Submitted: {new Date(quote.createdAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold text-gray-900 mt-2">
-                      ${quote.total.toLocaleString()}
-                    </p>
-                    <button
-                      onClick={() => generatePDF(quote)}
-                      className="mt-2 px-3 py-1 hdm-button-primary text-sm rounded-md transition-colors"
-                    >
-                      Download PDF
-                    </button>
+          {quotes.length === 0 ? (
+            <div className="hdm-card p-12 text-center">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">No Quotes Found</h2>
+              <p className="text-gray-600 mb-6">
+                You haven't submitted any quotes yet. Create your first quote to get started!
+              </p>
+              <Link
+                href="/calculator"
+                className="inline-flex px-6 py-3 hdm-button-primary rounded-md transition-colors"
+              >
+                Create Your First Quote
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {quotes.map((quote) => (
+                <div key={quote.id} className="hdm-card p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h2 className="text-xl font-semibold text-gray-900">{quote.projectName}</h2>
+                      <p className="text-gray-600">
+                        Submitted: {new Date(quote.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-gray-900 mt-2">
+                        ${quote.total.toLocaleString()}
+                      </p>
+                      <button
+                        onClick={() => generatePDF(quote)}
+                        className="mt-2 px-3 py-1 hdm-button-primary text-sm rounded-md transition-colors"
+                      >
+                        Download PDF
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
