@@ -5,12 +5,15 @@ import { useState, useEffect } from 'react'
 interface CalculatorFormData {
   // Project Overview
   projectName: string
-  projectType: string
+  packageSize: string
   projectDescription: string
+  submittedBy: string
+  submitterEmail: string
   timeline: string
   
   // Website Foundation
   pages: number
+  pageComplexity: string
   templates: number
   platform: string
   
@@ -34,8 +37,11 @@ interface CalculatorFormData {
   }
   
   // Interactive Features
+  design: string
   forms: number
+  integrations: string[]
   advancedForms: number
+  advancedFormsDescription: string
   calculators: number
   configurators: number
   
@@ -62,8 +68,6 @@ interface CalculatorFormData {
   customFeatures: Array<{ name: string; price: number }>
   
   // Contact Info
-  submittedBy: string
-  submitterEmail: string
   emailCC: string
   notes: string
 }
