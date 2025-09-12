@@ -125,16 +125,30 @@ export default function HeaderSettings() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Logo URL
                   </label>
-                  <input
-                    type="url"
-                    value={settings.logoUrl || ''}
-                    onChange={(e) => setSettings(prev => ({ ...prev, logoUrl: e.target.value }))}
-                    placeholder="https://example.com/logo.png"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="url"
+                      value={settings.logoUrl || ''}
+                      onChange={(e) => setSettings(prev => ({ ...prev, logoUrl: e.target.value }))}
+                      placeholder="/images/your-logo.png"
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setSettings(prev => ({ ...prev, logoUrl: '' }))}
+                      className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    >
+                      Clear
+                    </button>
+                  </div>
                   <p className="text-sm text-gray-500 mt-1">
-                    Enter the URL of your logo image
+                    Enter the URL of your logo image. Place your logo file in the <code className="bg-gray-100 px-1 rounded">public/images/</code> directory.
                   </p>
+                  {settings.logoUrl && (
+                    <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-800">
+                      <strong>Note:</strong> The current logo URL "{settings.logoUrl}" may not exist. Make sure the file is uploaded to the public/images directory.
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -222,15 +236,35 @@ export default function HeaderSettings() {
                 <div className={`p-6 ${settings.headerBackground === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
                   <div className="flex items-center justify-center">
                     {settings.logoUrl ? (
-                      <img
-                        src={settings.logoUrl}
-                        alt="HDM Logo"
-                        className="h-12 object-contain"
-                        onError={(e) => {
-                          // Fallback to text if image fails to load
-                          e.currentTarget.style.display = 'none'
-                        }}
-                      />
+                      <div className="relative h-12 w-48 flex items-center justify-center">
+                        <img
+                          src={settings.logoUrl}
+                          alt="HDM Logo"
+                          className="h-12 object-contain"
+                          onError={(e) => {
+                            // Hide image and show fallback text
+                            const target = e.currentTarget as HTMLImageElement
+                            const container = target.parentElement
+                            if (container) {
+                              container.innerHTML = `
+                                <div class="text-center">
+                                  <div class="text-2xl font-bold mb-1" style="color: ${settings.primaryColor || '#0e2c3d'}">
+                                    HDM
+                                  </div>
+                                  <div class="text-sm font-medium" style="color: ${settings.primaryColor || '#0e2c3d'}">
+                                    HELBLING DIGITAL MEDIA
+                                  </div>
+                                  ${settings.showTagline ? `
+                                    <div class="text-xs font-semibold uppercase tracking-wider mt-1" style="color: ${settings.primaryColor || '#0e2c3d'}">
+                                      INNOVATE. SCALE. GROW.
+                                    </div>
+                                  ` : ''}
+                                </div>
+                              `
+                            }
+                          }}
+                        />
+                      </div>
                     ) : (
                       <div className="text-center">
                         <div className="text-2xl font-bold mb-1" style={{color: settings.primaryColor}}>

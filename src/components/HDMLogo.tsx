@@ -93,6 +93,7 @@ const HDMLogo: React.FC<HDMLogoProps> = ({
             priority
             onError={() => {
               // Fallback to text if image fails to load
+              console.log('Logo image failed to load:', settings.logoUrl)
               setSettings(prev => ({ ...prev, logoUrl: undefined }))
             }}
           />
