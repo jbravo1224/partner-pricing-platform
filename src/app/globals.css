@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  /* HDM Brand Colors */
-  --hdm-dark-blue: #003366;
-  --hdm-light-blue: #006699;
-  --hdm-accent-blue: #4A90E2;
-  --hdm-gray: #F8F9FA;
-  --hdm-dark-gray: #6B7280;
+  /* HDM Brand Colors - Correct from actual website */
+  --hdm-primary: #0e2c3d;
+  --hdm-secondary: #5895a5;
+  --hdm-white: #ffffff;
+  --hdm-light-gray: #f8f9fa;
+  --hdm-dark-gray: #6b7280;
   
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 248, 249, 250;
@@ -18,8 +18,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 51, 102;
-    --background-end-rgb: 0, 51, 102;
+    --background-start-rgb: 14, 44, 61;
+    --background-end-rgb: 14, 44, 61;
   }
 }
 
@@ -31,25 +31,25 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Aero Trial', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* HDM Brand Components */
+/* HDM Brand Components - Updated with correct colors */
 .hdm-header {
-  background: linear-gradient(135deg, var(--hdm-dark-blue) 0%, var(--hdm-light-blue) 100%);
+  background: var(--hdm-primary);
   color: white;
 }
 
 .hdm-logo {
   font-weight: 700;
   font-size: 1.5rem;
-  color: var(--hdm-dark-blue);
+  color: var(--hdm-primary);
 }
 
 .hdm-logo-subtitle {
   font-weight: 400;
   font-size: 0.875rem;
-  color: var(--hdm-light-blue);
+  color: var(--hdm-primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -57,13 +57,13 @@ body {
 .hdm-tagline {
   font-weight: 600;
   font-size: 0.75rem;
-  color: var(--hdm-dark-blue);
+  color: var(--hdm-primary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 .hdm-button-primary {
-  background-color: var(--hdm-dark-blue);
+  background-color: var(--hdm-primary);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -73,15 +73,15 @@ body {
 }
 
 .hdm-button-primary:hover {
-  background-color: var(--hdm-light-blue);
+  background-color: var(--hdm-secondary);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+  box-shadow: 0 4px 12px rgba(14, 44, 61, 0.3);
 }
 
 .hdm-button-secondary {
   background-color: transparent;
-  color: var(--hdm-dark-blue);
-  border: 2px solid var(--hdm-dark-blue);
+  color: var(--hdm-primary);
+  border: 2px solid var(--hdm-primary);
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -89,7 +89,7 @@ body {
 }
 
 .hdm-button-secondary:hover {
-  background-color: var(--hdm-dark-blue);
+  background-color: var(--hdm-primary);
   color: white;
 }
 
@@ -97,7 +97,7 @@ body {
   background: white;
   border-radius: 0.75rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 51, 102, 0.1);
+  border: 1px solid rgba(14, 44, 61, 0.1);
 }
 
 .hdm-input {
@@ -108,9 +108,9 @@ body {
 }
 
 .hdm-input:focus {
-  border-color: var(--hdm-dark-blue);
+  border-color: var(--hdm-primary);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+  box-shadow: 0 0 0 3px rgba(14, 44, 61, 0.1);
 }
 
 @layer utilities {

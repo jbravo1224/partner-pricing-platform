@@ -78,18 +78,18 @@ export default function UserQuotes() {
       // Header with Logo
       doc.setFontSize(20)
       doc.setFont('helvetica', 'bold')
-      doc.setTextColor(0, 51, 102) // Dark blue color
+      doc.setTextColor(14, 44, 61) // HDM Primary color #0e2c3d
       doc.text('HDM', pageWidth / 2, yPosition, { align: 'center' })
       yPosition += 8
       
       doc.setFontSize(12)
       doc.setFont('helvetica', 'normal')
-      doc.setTextColor(0, 102, 153) // Lighter blue color
+      doc.setTextColor(14, 44, 61) // HDM Primary color #0e2c3d
       doc.text('HELBLING DIGITAL MEDIA', pageWidth / 2, yPosition, { align: 'center' })
       yPosition += 6
       
       doc.setFontSize(8)
-      doc.setTextColor(0, 51, 102) // Dark blue color
+      doc.setTextColor(14, 44, 61) // HDM Primary color #0e2c3d
       doc.text('INNOVATE. SCALE. GROW.', pageWidth / 2, yPosition, { align: 'center' })
       yPosition += 15
       
@@ -151,7 +151,7 @@ export default function UserQuotes() {
       const footerY = pageHeight - 30
       doc.setFontSize(10)
       doc.setFont('helvetica', 'normal')
-      doc.setTextColor(0, 51, 102) // Dark blue color
+      doc.setTextColor(14, 44, 61) // HDM Primary color #0e2c3d
       doc.text('HDM HELBLING DIGITAL MEDIA | Website Development & Design', pageWidth / 2, footerY, { align: 'center' })
       doc.setTextColor(0, 0, 0) // Black
       doc.text('Email: john@hdmcincy.com | Phone: 513-668-7344', pageWidth / 2, footerY + 8, { align: 'center' })
@@ -176,16 +176,17 @@ export default function UserQuotes() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="hdm-header py-6">
+      <header className="bg-white border-b border-gray-200 py-6">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div>
-              <div className="hdm-logo text-white text-2xl mb-1">HDM</div>
-              <div className="hdm-logo-subtitle text-blue-200 text-sm">HELBLING DIGITAL MEDIA</div>
+              <div className="text-2xl font-bold mb-1" style={{color: '#0e2c3d'}}>HDM</div>
+              <div className="text-sm font-medium" style={{color: '#0e2c3d'}}>HELBLING DIGITAL MEDIA</div>
+              <div className="text-xs font-semibold uppercase tracking-wider mt-1" style={{color: '#0e2c3d'}}>INNOVATE. SCALE. GROW.</div>
             </div>
             <Link
               href="/"
-              className="text-white hover:text-blue-200 transition-colors"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               ← Back to Home
             </Link>

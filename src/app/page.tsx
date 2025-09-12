@@ -4,13 +4,13 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       {/* Header */}
-      <header className="hdm-header py-8">
+      <header className="bg-white border-b border-gray-200 py-8">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="inline-block">
-              <div className="hdm-logo text-white text-4xl mb-2">HDM</div>
-              <div className="hdm-logo-subtitle text-blue-200 text-lg">HELBLING DIGITAL MEDIA</div>
-              <div className="hdm-tagline text-blue-200 text-sm mt-1">INNOVATE. SCALE. GROW.</div>
+              <div className="text-4xl font-bold mb-2" style={{color: '#0e2c3d'}}>HDM</div>
+              <div className="text-lg font-medium" style={{color: '#0e2c3d'}}>HELBLING DIGITAL MEDIA</div>
+              <div className="text-sm font-semibold uppercase tracking-wider mt-1" style={{color: '#0e2c3d'}}>INNOVATE. SCALE. GROW.</div>
             </div>
           </div>
         </div>
