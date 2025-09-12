@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 interface CalculatorFormData {
   // Project Overview
   projectName: string
+  projectType: string
   packageSize: string
   projectDescription: string
   submittedBy: string
