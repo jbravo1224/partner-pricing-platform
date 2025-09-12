@@ -175,32 +175,51 @@ export default function UserQuotes() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="hdm-header py-6">
+        <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Your Quotes</h1>
-              <p className="text-gray-600 mt-1">Email: {userEmail}</p>
+              <div className="hdm-logo text-white text-2xl mb-1">HDM</div>
+              <div className="hdm-logo-subtitle text-blue-200 text-sm">HELBLING DIGITAL MEDIA</div>
             </div>
             <Link
-              href="/calculator"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              href="/"
+              className="text-white hover:text-blue-200 transition-colors"
             >
-              Create New Quote
+              ← Back to Home
             </Link>
           </div>
         </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="hdm-card p-6 mb-6">
+            <div className="flex justify-between items-center">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Your Quotes</h1>
+                <p className="text-gray-600 mt-1">Email: {userEmail}</p>
+              </div>
+              <Link
+                href="/calculator"
+                className="hdm-button-primary px-4 py-2 rounded-md transition-colors"
+              >
+                Create New Quote
+              </Link>
+            </div>
+          </div>
 
         {quotes.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+          <div className="hdm-card p-12 text-center">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">No Quotes Found</h2>
             <p className="text-gray-600 mb-6">
               You haven't submitted any quotes yet. Create your first quote to get started!
             </p>
             <Link
               href="/calculator"
-              className="inline-flex px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="inline-flex px-6 py-3 hdm-button-primary rounded-md transition-colors"
             >
               Create Your First Quote
             </Link>
@@ -208,7 +227,7 @@ export default function UserQuotes() {
         ) : (
           <div className="space-y-6">
             {quotes.map((quote) => (
-              <div key={quote.id} className="bg-white rounded-lg shadow-sm p-6">
+              <div key={quote.id} className="hdm-card p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h2 className="text-xl font-semibold text-gray-900">{quote.projectName}</h2>
@@ -222,7 +241,7 @@ export default function UserQuotes() {
                     </p>
                     <button
                       onClick={() => generatePDF(quote)}
-                      className="mt-2 px-3 py-1 bg-gray-600 text-white text-sm rounded-md hover:bg-gray-700 transition-colors"
+                      className="mt-2 px-3 py-1 hdm-button-primary text-sm rounded-md transition-colors"
                     >
                       Download PDF
                     </button>

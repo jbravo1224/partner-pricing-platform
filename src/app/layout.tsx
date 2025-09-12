@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Partner Pricing Platform',
-  description: 'Multi-tenant pricing calculator platform',
+  title: 'HDM Helbling Digital Media - Partner Pricing Platform',
+  description: 'Professional website development and digital media solutions with advanced pricing calculator platform',
 }
 
 export default function RootLayout({
