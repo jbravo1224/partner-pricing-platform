@@ -105,9 +105,46 @@ export default function UserQuotes() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+    <>
+      {/* Print Styles */}
+      <style jsx global>{`
+        @media print {
+          .no-print {
+            display: none !important;
+          }
+          .print-only {
+            display: block !important;
+          }
+          body {
+            background: white !important;
+            color: black !important;
+          }
+          .quote-print-container {
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 20px !important;
+            background: white !important;
+          }
+          .quote-print-header {
+            border-bottom: 2px solid #000 !important;
+            margin-bottom: 20px !important;
+            padding-bottom: 15px !important;
+          }
+          .quote-print-content {
+            background: white !important;
+            box-shadow: none !important;
+            border: 1px solid #ccc !important;
+            margin-bottom: 20px !important;
+          }
+        }
+        .print-only {
+          display: none;
+        }
+      `}</style>
+      
+      <div className="min-h-screen bg-gray-100 p-6">
+        <div className="max-w-4xl mx-auto">
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 no-print">
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Your Quotes</h1>
@@ -122,8 +159,15 @@ export default function UserQuotes() {
           </div>
         </div>
 
+        {/* Print Header */}
+        <div className="print-only quote-print-header">
+          <h1 className="text-3xl font-bold text-black mb-2">Website Quote</h1>
+          <p className="text-lg text-black">Client: {userEmail}</p>
+          <p className="text-sm text-black">Generated: {new Date().toLocaleDateString()}</p>
+        </div>
+
         {quotes.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+          <div className="bg-white rounded-lg shadow-sm p-12 text-center no-print">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">No Quotes Found</h2>
             <p className="text-gray-600 mb-6">
               You haven't submitted any quotes yet. Create your first quote to get started!
@@ -138,7 +182,7 @@ export default function UserQuotes() {
         ) : (
           <div className="space-y-6">
             {quotes.map((quote) => (
-              <div key={quote.id} className="bg-white rounded-lg shadow-sm p-6">
+              <div key={quote.id} className="bg-white rounded-lg shadow-sm p-6 quote-print-content">
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h2 className="text-xl font-semibold text-gray-900">{quote.projectName}</h2>
@@ -184,7 +228,7 @@ export default function UserQuotes() {
                     <p className="text-sm text-gray-600 font-mono">{quote.id}</p>
                   </div>
                   
-                  <div className="bg-gray-50 p-4 rounded-md">
+                  <div className="bg-gray-50 p-4 rounded-md no-print">
                     <h3 className="font-semibold text-gray-900 mb-2">Actions</h3>
                     <div className="space-y-2">
                       <button
@@ -219,7 +263,7 @@ export default function UserQuotes() {
           </div>
         )}
 
-        <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
+        <div className="mt-8 bg-white rounded-lg shadow-sm p-6 no-print">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Need Help?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -251,7 +295,17 @@ export default function UserQuotes() {
             </div>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+
+      {/* Print Footer */}
+      <div className="print-only" style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #ccc' }}>
+        <div style={{ textAlign: 'center', fontSize: '12px', color: '#666' }}>
+          <p><strong>HDM Cincinnati</strong> | Website Development & Design</p>
+          <p>Email: john@hdmcincy.com | Phone: (513) 555-0123</p>
+          <p>This quote is valid for 30 days from the date of generation.</p>
+        </div>
+      </div>
+    </>
   )
 }
