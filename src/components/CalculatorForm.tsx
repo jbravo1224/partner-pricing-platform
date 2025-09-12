@@ -148,8 +148,6 @@ export default function CalculatorFormV2() {
     customFeatures: [],
     
     // Contact Info
-    submittedBy: '',
-    submitterEmail: '',
     emailCC: '',
     notes: ''
   })
