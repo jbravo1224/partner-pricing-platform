@@ -66,12 +66,13 @@ export default function AdminQuotes() {
       if (response.ok) {
         const data = await response.json()
         console.log('Quotes data:', data)
-        setQuotes(data)
+        setQuotes(Array.isArray(data) ? data : [])
         setError('')
       } else {
         const errorData = await response.json().catch(() => ({}))
         console.error('API Error:', errorData)
         setError(`Failed to fetch quotes: ${response.status} ${errorData.error || response.statusText}`)
+        setQuotes([]) // Set empty array on error
       }
     } catch (err) {
       console.error('Network error:', err)
@@ -214,6 +215,13 @@ export default function AdminQuotes() {
       {error && (
         <div className="mt-4 bg-red-50 border border-red-200 rounded-md p-4">
           <div className="text-red-800">{error}</div>
+        </div>
+      )}
+
+      {quotes.length === 0 && !loading && !error && (
+        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-md p-8 text-center">
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">No Quotes Found</h3>
+          <p className="text-blue-800">There are no quotes in the system yet. Quotes will appear here once they are submitted through the calculator.</p>
         </div>
       )}
 
