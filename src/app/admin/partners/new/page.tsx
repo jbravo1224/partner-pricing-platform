@@ -81,7 +81,7 @@ export default function NewPartnerPage() {
       setFormData(prev => ({
         ...prev,
         [parent]: {
-          ...prev[parent as keyof PartnerFormData],
+          ...(prev[parent as keyof PartnerFormData] as any || {}),
           [child]: value
         }
       }))
