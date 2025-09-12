@@ -1339,6 +1339,7 @@ export default function CalculatorFormV2() {
               />
             </div>
           </div>
+          </div>
 
           {/* Right Column - Pricing */}
           <div className="lg:col-span-1">
