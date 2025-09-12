@@ -544,7 +544,7 @@ export default function NewPartnerPage() {
           <h2 className="text-lg font-medium text-gray-900 mb-4">Email Configuration</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="fromEmail" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="fromEmail" className="block text-sm font-medium text-gray-700 mb-2">
                 From Email
               </label>
               <input
@@ -552,11 +552,12 @@ export default function NewPartnerPage() {
                 id="fromEmail"
                 value={formData.emailCfg.fromEmail}
                 onChange={(e) => handleInputChange('emailCfg.fromEmail', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="noreply@yourcompany.com"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
               />
             </div>
             <div>
-              <label htmlFor="fromName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="fromName" className="block text-sm font-medium text-gray-700 mb-2">
                 From Name
               </label>
               <input
@@ -564,11 +565,12 @@ export default function NewPartnerPage() {
                 id="fromName"
                 value={formData.emailCfg.fromName}
                 onChange={(e) => handleInputChange('emailCfg.fromName', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Your Company Name"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
               />
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                 Email Subject
               </label>
               <input
@@ -576,7 +578,8 @@ export default function NewPartnerPage() {
                 id="subject"
                 value={formData.emailCfg.subject}
                 onChange={(e) => handleInputChange('emailCfg.subject', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Your Website Quote - [Project Name]"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
               />
             </div>
           </div>
@@ -1076,12 +1079,12 @@ export default function NewPartnerPage() {
           </div>
         </div>
 
-        {/* Pricing Configuration */}
+        {/* Basic Pricing Configuration */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Pricing Configuration</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Basic Pricing Configuration</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="basePrice" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="basePrice" className="block text-sm font-medium text-gray-700 mb-2">
                 Base Price
               </label>
               <input
@@ -1089,23 +1092,24 @@ export default function NewPartnerPage() {
                 id="basePrice"
                 value={formData.pricingCfg.basePrice}
                 onChange={(e) => handleInputChange('pricingCfg.basePrice', parseFloat(e.target.value) || 0)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="0"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
               />
             </div>
             <div>
-              <label htmlFor="currency" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="currency" className="block text-sm font-medium text-gray-700 mb-2">
                 Currency
               </label>
               <select
                 id="currency"
                 value={formData.pricingCfg.currency}
                 onChange={(e) => handleInputChange('pricingCfg.currency', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
               >
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="CAD">CAD</option>
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="CAD">CAD (C$)</option>
               </select>
             </div>
             <div className="sm:col-span-2">
@@ -1118,8 +1122,378 @@ export default function NewPartnerPage() {
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
                 <label htmlFor="showBreakdown" className="ml-2 block text-sm text-gray-900">
-                  Show pricing breakdown
+                  Show pricing breakdown to users
                 </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Detailed Pricing Configuration */}
+        <div className="bg-white shadow rounded-lg p-6">
+          <h2 className="text-lg font-medium text-gray-900 mb-6">Detailed Pricing Configuration</h2>
+          <p className="text-sm text-gray-600 mb-6">Configure custom pricing for each calculator option. Leave at 0 to disable that option.</p>
+          
+          <div className="space-y-8">
+            {/* Base Pricing */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">Base Pricing</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div>
+                  <label htmlFor="pagePrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Page
+                  </label>
+                  <input
+                    type="number"
+                    id="pagePrice"
+                    value={formData.calculatorCfg.pricing.pagePrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.pagePrice', parseFloat(e.target.value) || 0)}
+                    placeholder="50"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="templatePrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Template
+                  </label>
+                  <input
+                    type="number"
+                    id="templatePrice"
+                    value={formData.calculatorCfg.pricing.templatePrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.templatePrice', parseFloat(e.target.value) || 0)}
+                    placeholder="200"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="formPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Form
+                  </label>
+                  <input
+                    type="number"
+                    id="formPrice"
+                    value={formData.calculatorCfg.pricing.formPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.formPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="100"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="advancedFormPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Advanced Form
+                  </label>
+                  <input
+                    type="number"
+                    id="advancedFormPrice"
+                    value={formData.calculatorCfg.pricing.advancedFormPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.advancedFormPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="300"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="calculatorPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Calculator
+                  </label>
+                  <input
+                    type="number"
+                    id="calculatorPrice"
+                    value={formData.calculatorCfg.pricing.calculatorPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.calculatorPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="500"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="configuratorPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Configurator
+                  </label>
+                  <input
+                    type="number"
+                    id="configuratorPrice"
+                    value={formData.calculatorCfg.pricing.configuratorPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.configuratorPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="750"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* E-commerce Pricing */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">E-commerce Pricing</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div>
+                  <label htmlFor="ecommerceBasePrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    E-commerce Base Price
+                  </label>
+                  <input
+                    type="number"
+                    id="ecommerceBasePrice"
+                    value={formData.calculatorCfg.pricing.ecommerceBasePrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.ecommerceBasePrice', parseFloat(e.target.value) || 0)}
+                    placeholder="1000"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="productPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Product
+                  </label>
+                  <input
+                    type="number"
+                    id="productPrice"
+                    value={formData.calculatorCfg.pricing.productPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.productPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="5"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="categoryPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Category
+                  </label>
+                  <input
+                    type="number"
+                    id="categoryPrice"
+                    value={formData.calculatorCfg.pricing.categoryPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.categoryPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="25"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="paymentMethodPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Price per Payment Method
+                  </label>
+                  <input
+                    type="number"
+                    id="paymentMethodPrice"
+                    value={formData.calculatorCfg.pricing.paymentMethodPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.paymentMethodPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="50"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Platform Pricing */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">Platform Pricing</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div>
+                  <label htmlFor="wordpressPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    WordPress Price
+                  </label>
+                  <input
+                    type="number"
+                    id="wordpressPrice"
+                    value={formData.calculatorCfg.pricing.wordpressPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.wordpressPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="0"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="shopifyPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Shopify Price
+                  </label>
+                  <input
+                    type="number"
+                    id="shopifyPrice"
+                    value={formData.calculatorCfg.pricing.shopifyPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.shopifyPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="500"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="bigcommercePrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    BigCommerce Price
+                  </label>
+                  <input
+                    type="number"
+                    id="bigcommercePrice"
+                    value={formData.calculatorCfg.pricing.bigcommercePrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.bigcommercePrice', parseFloat(e.target.value) || 0)}
+                    placeholder="500"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="customPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Custom Platform Price
+                  </label>
+                  <input
+                    type="number"
+                    id="customPrice"
+                    value={formData.calculatorCfg.pricing.customPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.customPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="2000"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Design Pricing */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">Design Pricing</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div>
+                  <label htmlFor="basicDesignPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Basic Design Price
+                  </label>
+                  <input
+                    type="number"
+                    id="basicDesignPrice"
+                    value={formData.calculatorCfg.pricing.basicDesignPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.basicDesignPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="0"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="standardDesignPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Standard Design Price
+                  </label>
+                  <input
+                    type="number"
+                    id="standardDesignPrice"
+                    value={formData.calculatorCfg.pricing.standardDesignPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.standardDesignPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="500"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="customDesignPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Custom Design Price
+                  </label>
+                  <input
+                    type="number"
+                    id="customDesignPrice"
+                    value={formData.calculatorCfg.pricing.customDesignPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.customDesignPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="1500"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Additional Services Pricing */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">Additional Services Pricing</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div>
+                  <label htmlFor="accessibilityBasicPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Basic Accessibility Price
+                  </label>
+                  <input
+                    type="number"
+                    id="accessibilityBasicPrice"
+                    value={formData.calculatorCfg.pricing.accessibilityBasicPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.accessibilityBasicPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="200"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="accessibilityStandardPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Standard Accessibility Price
+                  </label>
+                  <input
+                    type="number"
+                    id="accessibilityStandardPrice"
+                    value={formData.calculatorCfg.pricing.accessibilityStandardPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.accessibilityStandardPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="500"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="accessibilityFullPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Accessibility Price
+                  </label>
+                  <input
+                    type="number"
+                    id="accessibilityFullPrice"
+                    value={formData.calculatorCfg.pricing.accessibilityFullPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.accessibilityFullPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="1000"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="performanceOptimizationPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Performance Optimization Price
+                  </label>
+                  <input
+                    type="number"
+                    id="performanceOptimizationPrice"
+                    value={formData.calculatorCfg.pricing.performanceOptimizationPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.performanceOptimizationPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="300"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="crmIntegrationPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    CRM Integration Price
+                  </label>
+                  <input
+                    type="number"
+                    id="crmIntegrationPrice"
+                    value={formData.calculatorCfg.pricing.crmIntegrationPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.crmIntegrationPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="500"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="emailMarketingPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Marketing Price
+                  </label>
+                  <input
+                    type="number"
+                    id="emailMarketingPrice"
+                    value={formData.calculatorCfg.pricing.emailMarketingPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.emailMarketingPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="200"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="advancedTrackingPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                    Advanced Tracking Price
+                  </label>
+                  <input
+                    type="number"
+                    id="advancedTrackingPrice"
+                    value={formData.calculatorCfg.pricing.advancedTrackingPrice}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.advancedTrackingPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="300"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="rushMultiplier" className="block text-sm font-medium text-gray-700 mb-2">
+                    Rush Timeline Multiplier
+                  </label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    id="rushMultiplier"
+                    value={formData.calculatorCfg.pricing.rushMultiplier}
+                    onChange={(e) => handleInputChange('calculatorCfg.pricing.rushMultiplier', parseFloat(e.target.value) || 1.0)}
+                    placeholder="1.5"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">1.5 = 50% markup for rush projects</p>
+                </div>
               </div>
             </div>
           </div>
