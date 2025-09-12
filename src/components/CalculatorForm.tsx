@@ -28,8 +28,9 @@ interface CalculatorFormData {
   ecommerce: boolean
   ecommerceParams: {
     products: number
-    paymentMethod: string
-    paymentRedirect: boolean
+    categories: number
+    paymentMethods: string[]
+    inventory: boolean
   }
   
   // Interactive Features
@@ -99,11 +100,12 @@ export default function CalculatorFormV2() {
     
     // E-commerce
     ecommerce: false,
-    ecommerceParams: {
-      products: 0,
-      paymentMethod: 'Stripe/PayPal',
-      paymentRedirect: false
-    },
+      ecommerceParams: {
+        products: 0,
+        categories: 0,
+        paymentMethods: [],
+        inventory: false
+      },
     
     // Interactive Features
     forms: 0,
