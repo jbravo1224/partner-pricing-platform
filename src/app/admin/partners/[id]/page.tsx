@@ -8,6 +8,7 @@ interface PartnerFormData {
   id: string
   name: string
   slug: string
+  companyPassword: string
   branding: {
     logoUrl: string
     primaryColor: string
@@ -51,6 +52,7 @@ export default function EditPartnerPage() {
     id: '',
     name: '',
     slug: '',
+    companyPassword: '',
     branding: {
       logoUrl: '',
       primaryColor: '#3B82F6',
@@ -281,6 +283,22 @@ export default function EditPartnerPage() {
               />
               <p className="mt-1 text-sm text-gray-500">
                 This will be used in the URL: /p/{formData.slug}
+              </p>
+            </div>
+            <div className="sm:col-span-2">
+              <label htmlFor="companyPassword" className="block text-sm font-medium text-gray-700 mb-2">
+                Company Password (Optional)
+              </label>
+              <input
+                type="password"
+                id="companyPassword"
+                value={formData.companyPassword}
+                onChange={(e) => handleInputChange('companyPassword', e.target.value)}
+                placeholder="Leave empty for open access, or set a password for company-only access"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+              />
+              <p className="mt-1 text-sm text-gray-500">
+                If set, users will need this password to access the calculator. Leave empty for open access.
               </p>
             </div>
           </div>

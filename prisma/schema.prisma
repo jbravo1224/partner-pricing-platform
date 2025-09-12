@@ -14,6 +14,7 @@ model Partner {
   id        String   @id @default(cuid())
   slug      String   @unique
   name      String
+  companyPassword String? // Optional company password for calculator access
   branding  Json     // { logoUrl, colors }
   emailCfg  Json     // { to[], ccDefaultSubmitter?, allowAdditionalCc? }
   formCfg   Json     // { sections: [{ fields: [{ type, name, label, required, min, max, options }] }] }
