@@ -180,6 +180,23 @@ export default function EditPartnerPage() {
     )
   }
 
+  const copyPartnerLink = async () => {
+    const link = `${window.location.origin}/p/${formData.slug}`
+    try {
+      await navigator.clipboard.writeText(link)
+      alert('Partner calculator link copied to clipboard!')
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea')
+      textArea.value = link
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      alert('Partner calculator link copied to clipboard!')
+    }
+  }
+
   return (
     <div className="px-4 sm:px-0">
       <div className="sm:flex sm:items-center">
@@ -198,6 +215,31 @@ export default function EditPartnerPage() {
           </Link>
         </div>
       </div>
+
+      {/* Partner Calculator Link */}
+      {formData.slug && (
+        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-medium text-blue-900">Partner Calculator Link</h3>
+              <p className="text-sm text-blue-700 mt-1">
+                Share this link with clients to access their custom pricing calculator
+              </p>
+              <div className="mt-2 flex items-center space-x-2">
+                <span className="font-mono text-sm bg-white px-3 py-1 rounded border text-blue-900">
+                  {typeof window !== 'undefined' ? window.location.origin : ''}/p/{formData.slug}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={copyPartnerLink}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              📋 Copy Link
+            </button>
+          </div>
+        </div>
+      )}
 
       {error && (
         <div className="mt-4 bg-red-50 border border-red-200 rounded-md p-4">
