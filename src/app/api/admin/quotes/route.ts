@@ -48,9 +48,22 @@ export async function GET(request: NextRequest) {
 
     console.log('Database query where clause:', where)
 
+    // Get quotes with basic fields to avoid schema issues
     const quotes = await prisma.quote.findMany({
       where,
-      include: {
+      select: {
+        id: true,
+        partnerId: true,
+        partnerSlug: true,
+        inputs: true,
+        additionalCc: true,
+        subtotal: true,
+        total: true,
+        currency: true,
+        lineItems: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
         partner: {
           select: {
             name: true,
