@@ -86,7 +86,7 @@ export default function AdminLayout({
                 </h1>
               </div>
             </div>
-              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <Link
                   href="/admin"
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
