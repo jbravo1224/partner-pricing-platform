@@ -40,11 +40,20 @@ export default function AdminQuotes() {
   const fetchQuotes = async () => {
     try {
       const token = localStorage.getItem('adminToken')
+      if (!token) {
+        setError('No admin token found. Please log in again.')
+        setLoading(false)
+        return
+      }
+
       const queryParams = new URLSearchParams()
       
       Object.entries(filters).forEach(([key, value]) => {
         if (value) queryParams.append(key, value)
       })
+
+      console.log('Fetching quotes with token:', token.substring(0, 20) + '...')
+      console.log('Query params:', queryParams.toString())
 
       const response = await fetch(`/api/admin/quotes?${queryParams}`, {
         headers: {
@@ -52,14 +61,21 @@ export default function AdminQuotes() {
         }
       })
 
+      console.log('Response status:', response.status)
+
       if (response.ok) {
         const data = await response.json()
+        console.log('Quotes data:', data)
         setQuotes(data)
+        setError('')
       } else {
-        setError('Failed to fetch quotes')
+        const errorData = await response.json().catch(() => ({}))
+        console.error('API Error:', errorData)
+        setError(`Failed to fetch quotes: ${response.status} ${errorData.error || response.statusText}`)
       }
     } catch (err) {
-      setError('Network error')
+      console.error('Network error:', err)
+      setError(`Network error: ${err instanceof Error ? err.message : 'Unknown error'}`)
     } finally {
       setLoading(false)
     }

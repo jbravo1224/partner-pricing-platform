@@ -14,6 +14,8 @@ export async function GET(request: NextRequest) {
     const projectType = searchParams.get('projectType')
     const email = searchParams.get('email')
 
+    console.log('Admin quotes API called with filters:', { partner, dateFrom, dateTo, projectType, email })
+
     const where: any = {}
 
     if (partner) {
@@ -44,6 +46,8 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    console.log('Database query where clause:', where)
+
     const quotes = await prisma.quote.findMany({
       where,
       include: {
@@ -57,9 +61,13 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' }
     })
 
+    console.log(`Found ${quotes.length} quotes`)
     return NextResponse.json(quotes)
   } catch (error) {
     console.error('Error fetching quotes:', error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return NextResponse.json({ 
+      error: 'Internal server error',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }
