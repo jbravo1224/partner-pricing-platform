@@ -19,6 +19,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.5",
     "bcryptjs": "^2.4.3",
+    "jspdf": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.4",
     "nodemailer": "^6.9.7",
@@ -29,6 +30,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/jspdf": "^2.3.0",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",

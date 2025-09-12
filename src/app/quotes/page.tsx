@@ -96,6 +96,99 @@ export default function UserQuotes() {
     }
   }
 
+  const generatePDF = async (quote: UserQuote) => {
+    try {
+      // Dynamic import to avoid SSR issues
+      const { jsPDF } = await import('jspdf')
+      
+      const doc = new jsPDF()
+      const pageWidth = doc.internal.pageSize.getWidth()
+      const pageHeight = doc.internal.pageSize.getHeight()
+      let yPosition = 20
+
+      // Header
+      doc.setFontSize(24)
+      doc.setFont('helvetica', 'bold')
+      doc.text('Website Quote', pageWidth / 2, yPosition, { align: 'center' })
+      yPosition += 15
+
+      doc.setFontSize(12)
+      doc.setFont('helvetica', 'normal')
+      doc.text(`Client: ${userEmail}`, pageWidth / 2, yPosition, { align: 'center' })
+      yPosition += 8
+      doc.text(`Generated: ${new Date().toLocaleDateString()}`, pageWidth / 2, yPosition, { align: 'center' })
+      yPosition += 20
+
+      // Quote Details
+      doc.setFontSize(16)
+      doc.setFont('helvetica', 'bold')
+      doc.text(quote.projectName, 20, yPosition)
+      yPosition += 12
+
+      doc.setFontSize(12)
+      doc.setFont('helvetica', 'normal')
+      doc.text(`Quote ID: ${quote.id}`, 20, yPosition)
+      yPosition += 8
+      doc.text(`Submitted: ${new Date(quote.createdAt).toLocaleDateString()}`, 20, yPosition)
+      yPosition += 8
+      doc.text(`Status: ${getStatusText(quote.status)}`, 20, yPosition)
+      yPosition += 15
+
+      // Project Details
+      doc.setFontSize(14)
+      doc.setFont('helvetica', 'bold')
+      doc.text('Project Details', 20, yPosition)
+      yPosition += 10
+
+      doc.setFontSize(12)
+      doc.setFont('helvetica', 'normal')
+      doc.text(`Templates: ${quote.formData.templates || 0}`, 20, yPosition)
+      yPosition += 8
+      doc.text(`Pages: ${quote.formData.pages || 0}`, 20, yPosition)
+      yPosition += 8
+      doc.text(`Forms: ${quote.formData.forms || 0}`, 20, yPosition)
+      if (quote.formData.ecommerce) {
+        doc.text('E-commerce: Yes', 20, yPosition)
+        yPosition += 8
+      }
+      yPosition += 15
+
+      // Total
+      doc.setFontSize(16)
+      doc.setFont('helvetica', 'bold')
+      doc.text(`Total: $${quote.total.toLocaleString()}`, 20, yPosition)
+      yPosition += 20
+
+      // Admin Notes (if any)
+      if (quote.notes) {
+        doc.setFontSize(14)
+        doc.setFont('helvetica', 'bold')
+        doc.text('Admin Notes:', 20, yPosition)
+        yPosition += 10
+
+        doc.setFontSize(12)
+        doc.setFont('helvetica', 'normal')
+        const splitNotes = doc.splitTextToSize(quote.notes, pageWidth - 40)
+        doc.text(splitNotes, 20, yPosition)
+        yPosition += splitNotes.length * 6 + 10
+      }
+
+      // Footer
+      const footerY = pageHeight - 30
+      doc.setFontSize(10)
+      doc.setFont('helvetica', 'normal')
+      doc.text('HDM Cincinnati | Website Development & Design', pageWidth / 2, footerY, { align: 'center' })
+      doc.text('Email: john@hdmcincy.com | Phone: 513-668-7344', pageWidth / 2, footerY + 8, { align: 'center' })
+      doc.text('This quote is valid for 30 days from the date of generation.', pageWidth / 2, footerY + 16, { align: 'center' })
+
+      // Save the PDF
+      doc.save(`quote-${quote.id}-${quote.projectName.replace(/\s+/g, '-').toLowerCase()}.pdf`)
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+      alert('Error generating PDF. Please try again.')
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -105,46 +198,9 @@ export default function UserQuotes() {
   }
 
   return (
-    <>
-      {/* Print Styles */}
-      <style jsx global>{`
-        @media print {
-          .no-print {
-            display: none !important;
-          }
-          .print-only {
-            display: block !important;
-          }
-          body {
-            background: white !important;
-            color: black !important;
-          }
-          .quote-print-container {
-            max-width: none !important;
-            margin: 0 !important;
-            padding: 20px !important;
-            background: white !important;
-          }
-          .quote-print-header {
-            border-bottom: 2px solid #000 !important;
-            margin-bottom: 20px !important;
-            padding-bottom: 15px !important;
-          }
-          .quote-print-content {
-            background: white !important;
-            box-shadow: none !important;
-            border: 1px solid #ccc !important;
-            margin-bottom: 20px !important;
-          }
-        }
-        .print-only {
-          display: none;
-        }
-      `}</style>
-      
-      <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-6">
         <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 no-print">
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Your Quotes</h1>
@@ -159,15 +215,8 @@ export default function UserQuotes() {
           </div>
         </div>
 
-        {/* Print Header */}
-        <div className="print-only quote-print-header">
-          <h1 className="text-3xl font-bold text-black mb-2">Website Quote</h1>
-          <p className="text-lg text-black">Client: {userEmail}</p>
-          <p className="text-sm text-black">Generated: {new Date().toLocaleDateString()}</p>
-        </div>
-
         {quotes.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm p-12 text-center no-print">
+          <div className="bg-white rounded-lg shadow-sm p-12 text-center">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">No Quotes Found</h2>
             <p className="text-gray-600 mb-6">
               You haven't submitted any quotes yet. Create your first quote to get started!
@@ -182,7 +231,7 @@ export default function UserQuotes() {
         ) : (
           <div className="space-y-6">
             {quotes.map((quote) => (
-              <div key={quote.id} className="bg-white rounded-lg shadow-sm p-6 quote-print-content">
+              <div key={quote.id} className="bg-white rounded-lg shadow-sm p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h2 className="text-xl font-semibold text-gray-900">{quote.projectName}</h2>
@@ -228,14 +277,14 @@ export default function UserQuotes() {
                     <p className="text-sm text-gray-600 font-mono">{quote.id}</p>
                   </div>
                   
-                  <div className="bg-gray-50 p-4 rounded-md no-print">
+                  <div className="bg-gray-50 p-4 rounded-md">
                     <h3 className="font-semibold text-gray-900 mb-2">Actions</h3>
                     <div className="space-y-2">
                       <button
-                        onClick={() => window.print()}
+                        onClick={() => generatePDF(quote)}
                         className="w-full px-3 py-2 bg-gray-600 text-white text-sm rounded-md hover:bg-gray-700 transition-colors"
                       >
-                        Print Quote
+                        Download PDF
                       </button>
                       <button
                         onClick={() => {
@@ -263,7 +312,7 @@ export default function UserQuotes() {
           </div>
         )}
 
-        <div className="mt-8 bg-white rounded-lg shadow-sm p-6 no-print">
+        <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Need Help?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -297,15 +346,6 @@ export default function UserQuotes() {
         </div>
         </div>
       </div>
-
-      {/* Print Footer */}
-      <div className="print-only" style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #ccc' }}>
-        <div style={{ textAlign: 'center', fontSize: '12px', color: '#666' }}>
-          <p><strong>HDM Cincinnati</strong> | Website Development & Design</p>
-          <p>Email: john@hdmcincy.com | Phone: 513-668-7344</p>
-          <p>This quote is valid for 30 days from the date of generation.</p>
-        </div>
-      </div>
-    </>
+    </div>
   )
 }
