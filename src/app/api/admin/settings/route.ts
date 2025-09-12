@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
     // Provide default values if no settings exist
     const defaultSettings = {
-      logoUrl: '',
+      logoUrl: '/images/hdm-logo.svg',
       showTagline: true,
       primaryColor: '#0e2c3d',
       secondaryColor: '#5895a5',
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     
     // Return default settings if database fails
     const defaultSettings = {
-      logoUrl: '',
+      logoUrl: '/images/hdm-logo.svg',
       showTagline: true,
       primaryColor: '#0e2c3d',
       secondaryColor: '#5895a5',

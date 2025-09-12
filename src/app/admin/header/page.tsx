@@ -134,7 +134,7 @@ export default function HeaderSettings() {
                         setSettings(prev => ({ ...prev, logoUrl: e.target.value }))
                         setLogoLoadError(false) // Reset error state when URL changes
                       }}
-                      placeholder="/images/your-logo.png"
+                      placeholder="/images/hdm-logo.svg"
                       className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <button
