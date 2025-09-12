@@ -613,6 +613,469 @@ export default function NewPartnerPage() {
           </div>
         </div>
 
+        {/* Calculator Configuration */}
+        <div className="bg-white shadow rounded-lg p-6">
+          <h2 className="text-lg font-medium text-gray-900 mb-6">Calculator Configuration</h2>
+          
+          {/* Feature Toggles */}
+          <div className="space-y-8">
+            {/* Project Overview Section */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">1. Project Overview</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="showProjectOverview"
+                    checked={formData.calculatorCfg.showProjectOverview}
+                    onChange={(e) => handleInputChange('calculatorCfg.showProjectOverview', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="showProjectOverview" className="ml-2 block text-sm text-gray-900">
+                    Show Project Overview
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireProjectName"
+                    checked={formData.calculatorCfg.requireProjectName}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireProjectName', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireProjectName" className="ml-2 block text-sm text-gray-900">
+                    Require Project Name
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireProjectType"
+                    checked={formData.calculatorCfg.requireProjectType}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireProjectType', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireProjectType" className="ml-2 block text-sm text-gray-900">
+                    Require Project Type
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requirePackageSize"
+                    checked={formData.calculatorCfg.requirePackageSize}
+                    onChange={(e) => handleInputChange('calculatorCfg.requirePackageSize', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requirePackageSize" className="ml-2 block text-sm text-gray-900">
+                    Require Package Size
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireDescription"
+                    checked={formData.calculatorCfg.requireDescription}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireDescription', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireDescription" className="ml-2 block text-sm text-gray-900">
+                    Require Description
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireContactInfo"
+                    checked={formData.calculatorCfg.requireContactInfo}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireContactInfo', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireContactInfo" className="ml-2 block text-sm text-gray-900">
+                    Require Contact Info
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireTimeline"
+                    checked={formData.calculatorCfg.requireTimeline}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireTimeline', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireTimeline" className="ml-2 block text-sm text-gray-900">
+                    Require Timeline
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Website Foundation Section */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">2. Website Foundation</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="showWebsiteFoundation"
+                    checked={formData.calculatorCfg.showWebsiteFoundation}
+                    onChange={(e) => handleInputChange('calculatorCfg.showWebsiteFoundation', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="showWebsiteFoundation" className="ml-2 block text-sm text-gray-900">
+                    Show Website Foundation
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requirePages"
+                    checked={formData.calculatorCfg.requirePages}
+                    onChange={(e) => handleInputChange('calculatorCfg.requirePages', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requirePages" className="ml-2 block text-sm text-gray-900">
+                    Require Pages
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requirePageComplexity"
+                    checked={formData.calculatorCfg.requirePageComplexity}
+                    onChange={(e) => handleInputChange('calculatorCfg.requirePageComplexity', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requirePageComplexity" className="ml-2 block text-sm text-gray-900">
+                    Require Page Complexity
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireTemplates"
+                    checked={formData.calculatorCfg.requireTemplates}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireTemplates', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireTemplates" className="ml-2 block text-sm text-gray-900">
+                    Require Templates
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requirePlatform"
+                    checked={formData.calculatorCfg.requirePlatform}
+                    onChange={(e) => handleInputChange('calculatorCfg.requirePlatform', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requirePlatform" className="ml-2 block text-sm text-gray-900">
+                    Require Platform
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="showCustomApp"
+                    checked={formData.calculatorCfg.showCustomApp}
+                    onChange={(e) => handleInputChange('calculatorCfg.showCustomApp', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="showCustomApp" className="ml-2 block text-sm text-gray-900">
+                    Show Custom App Options
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* E-commerce Section */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">3. E-commerce</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="showEcommerce"
+                    checked={formData.calculatorCfg.showEcommerce}
+                    onChange={(e) => handleInputChange('calculatorCfg.showEcommerce', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="showEcommerce" className="ml-2 block text-sm text-gray-900">
+                    Show E-commerce Section
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireEcommerceType"
+                    checked={formData.calculatorCfg.requireEcommerceType}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireEcommerceType', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireEcommerceType" className="ml-2 block text-sm text-gray-900">
+                    Require Store Type
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireProductCount"
+                    checked={formData.calculatorCfg.requireProductCount}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireProductCount', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireProductCount" className="ml-2 block text-sm text-gray-900">
+                    Require Product Count
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireCategories"
+                    checked={formData.calculatorCfg.requireCategories}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireCategories', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireCategories" className="ml-2 block text-sm text-gray-900">
+                    Require Categories
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requirePaymentMethods"
+                    checked={formData.calculatorCfg.requirePaymentMethods}
+                    onChange={(e) => handleInputChange('calculatorCfg.requirePaymentMethods', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requirePaymentMethods" className="ml-2 block text-sm text-gray-900">
+                    Require Payment Methods
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireInventory"
+                    checked={formData.calculatorCfg.requireInventory}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireInventory', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireInventory" className="ml-2 block text-sm text-gray-900">
+                    Require Inventory Management
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Interactive Features Section */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">4. Interactive Features</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="showInteractiveFeatures"
+                    checked={formData.calculatorCfg.showInteractiveFeatures}
+                    onChange={(e) => handleInputChange('calculatorCfg.showInteractiveFeatures', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="showInteractiveFeatures" className="ml-2 block text-sm text-gray-900">
+                    Show Interactive Features
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireDesign"
+                    checked={formData.calculatorCfg.requireDesign}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireDesign', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireDesign" className="ml-2 block text-sm text-gray-900">
+                    Require Design Selection
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireForms"
+                    checked={formData.calculatorCfg.requireForms}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireForms', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireForms" className="ml-2 block text-sm text-gray-900">
+                    Require Forms
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireAdvancedForms"
+                    checked={formData.calculatorCfg.requireAdvancedForms}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireAdvancedForms', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireAdvancedForms" className="ml-2 block text-sm text-gray-900">
+                    Require Advanced Forms
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireCalculators"
+                    checked={formData.calculatorCfg.requireCalculators}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireCalculators', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireCalculators" className="ml-2 block text-sm text-gray-900">
+                    Require Calculators
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireConfigurators"
+                    checked={formData.calculatorCfg.requireConfigurators}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireConfigurators', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireConfigurators" className="ml-2 block text-sm text-gray-900">
+                    Require Configurators
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireIntegrations"
+                    checked={formData.calculatorCfg.requireIntegrations}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireIntegrations', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireIntegrations" className="ml-2 block text-sm text-gray-900">
+                    Require Integrations
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Additional Services Section */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className="text-md font-medium text-gray-900 mb-4">5. Additional Services</h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="showAdditionalServices"
+                    checked={formData.calculatorCfg.showAdditionalServices}
+                    onChange={(e) => handleInputChange('calculatorCfg.showAdditionalServices', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="showAdditionalServices" className="ml-2 block text-sm text-gray-900">
+                    Show Additional Services
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireAccessibility"
+                    checked={formData.calculatorCfg.requireAccessibility}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireAccessibility', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireAccessibility" className="ml-2 block text-sm text-gray-900">
+                    Require Accessibility
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requirePerformanceOptimization"
+                    checked={formData.calculatorCfg.requirePerformanceOptimization}
+                    onChange={(e) => handleInputChange('calculatorCfg.requirePerformanceOptimization', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requirePerformanceOptimization" className="ml-2 block text-sm text-gray-900">
+                    Require Performance Optimization
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireDesignAndBranding"
+                    checked={formData.calculatorCfg.requireDesignAndBranding}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireDesignAndBranding', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireDesignAndBranding" className="ml-2 block text-sm text-gray-900">
+                    Require Design & Branding
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireContentAndMarketing"
+                    checked={formData.calculatorCfg.requireContentAndMarketing}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireContentAndMarketing', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireContentAndMarketing" className="ml-2 block text-sm text-gray-900">
+                    Require Content & Marketing
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireCrmIntegration"
+                    checked={formData.calculatorCfg.requireCrmIntegration}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireCrmIntegration', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireCrmIntegration" className="ml-2 block text-sm text-gray-900">
+                    Require CRM Integration
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireEmailMarketing"
+                    checked={formData.calculatorCfg.requireEmailMarketing}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireEmailMarketing', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireEmailMarketing" className="ml-2 block text-sm text-gray-900">
+                    Require Email Marketing
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireAdvancedTracking"
+                    checked={formData.calculatorCfg.requireAdvancedTracking}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireAdvancedTracking', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireAdvancedTracking" className="ml-2 block text-sm text-gray-900">
+                    Require Advanced Tracking
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="requireCustomFeatures"
+                    checked={formData.calculatorCfg.requireCustomFeatures}
+                    onChange={(e) => handleInputChange('calculatorCfg.requireCustomFeatures', e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="requireCustomFeatures" className="ml-2 block text-sm text-gray-900">
+                    Require Custom Features
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Pricing Configuration */}
         <div className="bg-white shadow rounded-lg p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Pricing Configuration</h2>
