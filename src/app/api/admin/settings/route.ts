@@ -12,13 +12,31 @@ export async function GET(request: NextRequest) {
       return acc
     }, {} as Record<string, any>)
 
-    return NextResponse.json(settingsObj)
+    // Provide default values if no settings exist
+    const defaultSettings = {
+      logoUrl: '',
+      showTagline: true,
+      primaryColor: '#0e2c3d',
+      secondaryColor: '#5895a5',
+      headerBackground: 'white'
+    }
+
+    const mergedSettings = { ...defaultSettings, ...settingsObj }
+
+    return NextResponse.json(mergedSettings)
   } catch (error) {
     console.error('Error fetching global settings:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch settings' },
-      { status: 500 }
-    )
+    
+    // Return default settings if database fails
+    const defaultSettings = {
+      logoUrl: '',
+      showTagline: true,
+      primaryColor: '#0e2c3d',
+      secondaryColor: '#5895a5',
+      headerBackground: 'white'
+    }
+    
+    return NextResponse.json(defaultSettings)
   }
 }
 

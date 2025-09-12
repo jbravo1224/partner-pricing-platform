@@ -34,14 +34,30 @@ const HDMLogo: React.FC<HDMLogoProps> = ({
       if (response.ok) {
         const data = await response.json()
         setSettings({
-          logoUrl: data.logoUrl,
+          logoUrl: data.logoUrl || '',
           showTagline: data.showTagline !== false,
           primaryColor: data.primaryColor || '#0e2c3d',
           secondaryColor: data.secondaryColor || '#5895a5'
         })
+      } else {
+        console.error('Settings API returned error:', response.status)
+        // Use default settings if API fails
+        setSettings({
+          logoUrl: '',
+          showTagline: true,
+          primaryColor: '#0e2c3d',
+          secondaryColor: '#5895a5'
+        })
       }
     } catch (error) {
       console.error('Error loading logo settings:', error)
+      // Use default settings if API fails
+      setSettings({
+        logoUrl: '',
+        showTagline: true,
+        primaryColor: '#0e2c3d',
+        secondaryColor: '#5895a5'
+      })
     } finally {
       setLoading(false)
     }
