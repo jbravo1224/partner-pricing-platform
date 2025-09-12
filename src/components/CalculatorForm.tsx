@@ -85,11 +85,15 @@ export default function CalculatorFormV2() {
     // Project Overview
     projectName: '',
     projectType: 'Marketing Website',
+    packageSize: 'Simple',
     projectDescription: '',
+    submittedBy: '',
+    submitterEmail: '',
     timeline: 'Standard',
     
     // Website Foundation
     pages: 5,
+    pageComplexity: 'Simple',
     templates: 1,
     platform: 'WordPress',
     
@@ -113,8 +117,11 @@ export default function CalculatorFormV2() {
       },
     
     // Interactive Features
+    design: 'Grey Matter',
     forms: 0,
+    integrations: [],
     advancedForms: 0,
+    advancedFormsDescription: '',
     calculators: 0,
     configurators: 0,
     
