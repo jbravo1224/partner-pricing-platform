@@ -40,6 +40,50 @@ body {
   color: white;
 }
 
+/* HDM Logo with Shield Icon */
+.hdm-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hdm-shield-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.hdm-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.hdm-logo-main {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--hdm-primary);
+  margin: 0;
+}
+
+.hdm-logo-subtitle {
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--hdm-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.hdm-logo-tagline {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--hdm-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
 .hdm-logo {
   font-weight: 700;
   font-size: 1.5rem;
