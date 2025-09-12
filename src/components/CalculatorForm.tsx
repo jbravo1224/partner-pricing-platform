@@ -383,15 +383,25 @@ export default function CalculatorFormV2() {
   const resetForm = () => {
     setFormData({
       projectName: '',
+      projectType: 'Website',
       packageSize: 'Simple',
       projectDescription: '',
       submittedBy: '',
       submitterEmail: '',
+      timeline: 'Standard',
       emailCC: '',
       templates: 1,
       pages: 5,
       pageComplexity: 'Simple',
       platform: 'WordPress (CMS)',
+      customApp: {
+        appType: '',
+        userAccounts: false,
+        database: false,
+        apiIntegrations: 0,
+        mobileApp: false,
+        complexity: 'Simple'
+      },
       ecommerce: false,
       ecommerceParams: {
         products: 0,
@@ -406,7 +416,23 @@ export default function CalculatorFormV2() {
       advancedFormsDescription: '',
       calculators: 0,
       configurators: 0,
+      crmIntegration: false,
+      emailMarketing: false,
+      advancedTracking: false,
+      designAndBranding: {
+        logoDesign: false,
+        customDesign: false,
+        photography: false,
+        brandIdentity: false
+      },
+      contentAndMarketing: {
+        copywriting: false,
+        contentStrategy: false,
+        seoSetup: false,
+        socialMedia: false
+      },
       accessibility: 'None',
+      performanceOptimization: false,
       customFeatures: [],
       notes: ''
     })
