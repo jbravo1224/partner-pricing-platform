@@ -324,7 +324,7 @@ export default function CalculatorFormV2() {
       baseTimeline = 60
     }
     
-    const rushTimeline = formData.rush ? Math.ceil(baseTimeline * 0.7) : baseTimeline
+    const rushTimeline = formData.timeline === 'Rush' ? Math.ceil(baseTimeline * 0.7) : baseTimeline
     setTimeline(rushTimeline)
   }
 
