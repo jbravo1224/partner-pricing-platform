@@ -407,7 +407,6 @@ export default function CalculatorFormV2() {
       calculators: 0,
       configurators: 0,
       accessibility: 'None',
-      rush: false,
       customFeatures: [],
       notes: ''
     })
