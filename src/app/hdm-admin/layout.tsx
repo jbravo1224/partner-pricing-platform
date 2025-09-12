@@ -21,8 +21,8 @@ export default function AdminLayout({
       const isAuthenticated = localStorage.getItem('adminAuthenticated')
       
       if (!token || !isAuthenticated) {
-        if (pathname !== '/admin/login') {
-          router.push('/admin/login')
+        if (pathname !== '/hdm-admin/login') {
+          router.push('/hdm-admin/login')
         }
         setLoading(false)
         return
@@ -54,7 +54,7 @@ export default function AdminLayout({
     
     localStorage.removeItem('adminToken')
     localStorage.removeItem('adminAuthenticated')
-    router.push('/admin/login')
+    router.push('/hdm-admin/login')
   }
 
   if (loading) {
@@ -65,7 +65,7 @@ export default function AdminLayout({
     )
   }
 
-  if (pathname === '/admin/login') {
+  if (pathname === '/hdm-admin/login') {
     return <>{children}</>
   }
 
@@ -88,9 +88,9 @@ export default function AdminLayout({
             </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <Link
-                  href="/admin"
+                  href="/hdm-admin"
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                    pathname === '/admin'
+                    pathname === '/hdm-admin'
                       ? 'border-indigo-500 text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
@@ -98,9 +98,9 @@ export default function AdminLayout({
                   Partners
                 </Link>
                 <Link
-                  href="/admin/quotes"
+                  href="/hdm-admin/quotes"
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                    pathname === '/admin/quotes'
+                    pathname === '/hdm-admin/quotes'
                       ? 'border-indigo-500 text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
@@ -108,9 +108,9 @@ export default function AdminLayout({
                   Quotes
                 </Link>
                 <Link
-                  href="/admin/settings"
+                  href="/hdm-admin/settings"
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                    pathname === '/admin/settings'
+                    pathname === '/hdm-admin/settings'
                       ? 'border-indigo-500 text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
@@ -118,9 +118,9 @@ export default function AdminLayout({
                   Settings
                 </Link>
                 <Link
-                  href="/admin/header"
+                  href="/hdm-admin/header"
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                    pathname === '/admin/header'
+                    pathname === '/hdm-admin/header'
                       ? 'border-indigo-500 text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}

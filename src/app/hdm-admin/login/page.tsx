@@ -21,8 +21,8 @@ export default function AdminLogin() {
       localStorage.setItem('adminAuthenticated', 'true')
       console.log('Login successful, redirecting...')
       // Try multiple redirect methods
-      window.location.href = '/admin'
-      router.push('/admin')
+      window.location.href = '/hdm-admin'
+      router.push('/hdm-admin')
       return
     }
 
@@ -42,8 +42,8 @@ export default function AdminLogin() {
         localStorage.setItem('adminToken', data.token || 'admin-authenticated')
         localStorage.setItem('adminAuthenticated', 'true')
         console.log('API login successful, redirecting...')
-        window.location.href = '/admin'
-        router.push('/admin')
+        window.location.href = '/hdm-admin'
+        router.push('/hdm-admin')
       } else {
         setError(data.error || 'Login failed')
       }
@@ -53,8 +53,8 @@ export default function AdminLogin() {
         localStorage.setItem('adminToken', 'admin-authenticated-' + Date.now())
         localStorage.setItem('adminAuthenticated', 'true')
         console.log('Fallback login successful, redirecting...')
-        window.location.href = '/admin'
-        router.push('/admin')
+        window.location.href = '/hdm-admin'
+        router.push('/hdm-admin')
       } else {
         setError('Invalid password')
       }
