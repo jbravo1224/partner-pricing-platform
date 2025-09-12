@@ -97,3 +97,13 @@ model AdminSession {
 
   @@map("admin_sessions")
 }
+
+model GlobalSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("global_settings")
+}
