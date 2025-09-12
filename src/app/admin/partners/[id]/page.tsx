@@ -244,55 +244,164 @@ export default function EditPartnerPage() {
 
         {/* Branding */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Branding</h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
-              <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-700">
-                Logo URL
-              </label>
-              <input
-                type="url"
-                id="logoUrl"
-                value={formData.branding.logoUrl}
-                onChange={(e) => handleInputChange('branding.logoUrl', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Branding & Visual Identity</h2>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* Left Column - Branding Inputs */}
+            <div className="space-y-6">
+              <div>
+                <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-700 mb-2">
+                  Logo URL
+                </label>
+                <input
+                  type="url"
+                  id="logoUrl"
+                  value={formData.branding.logoUrl}
+                  onChange={(e) => handleInputChange('branding.logoUrl', e.target.value)}
+                  placeholder="https://example.com/logo.png"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Upload your logo to a hosting service and paste the URL here
+                </p>
+              </div>
+              
+              <div>
+                <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Company Name
+                </label>
+                <input
+                  type="text"
+                  id="companyName"
+                  value={formData.branding.companyName}
+                  onChange={(e) => handleInputChange('branding.companyName', e.target.value)}
+                  placeholder="Your Company Name"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="tagline" className="block text-sm font-medium text-gray-700 mb-2">
+                  Tagline
+                </label>
+                <input
+                  type="text"
+                  id="tagline"
+                  value={formData.branding.tagline}
+                  onChange={(e) => handleInputChange('branding.tagline', e.target.value)}
+                  placeholder="Your company tagline or slogan"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                />
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="primaryColor" className="block text-sm font-medium text-gray-700 mb-2">
+                    Primary Color
+                  </label>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="color"
+                      id="primaryColor"
+                      value={formData.branding.primaryColor}
+                      onChange={(e) => handleInputChange('branding.primaryColor', e.target.value)}
+                      className="h-10 w-16 border border-gray-300 rounded-md cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={formData.branding.primaryColor}
+                      onChange={(e) => handleInputChange('branding.primaryColor', e.target.value)}
+                      className="flex-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="secondaryColor" className="block text-sm font-medium text-gray-700 mb-2">
+                    Secondary Color
+                  </label>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="color"
+                      id="secondaryColor"
+                      value={formData.branding.secondaryColor}
+                      onChange={(e) => handleInputChange('branding.secondaryColor', e.target.value)}
+                      className="h-10 w-16 border border-gray-300 rounded-md cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={formData.branding.secondaryColor}
+                      onChange={(e) => handleInputChange('branding.secondaryColor', e.target.value)}
+                      className="flex-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">
-                Company Name
-              </label>
-              <input
-                type="text"
-                id="companyName"
-                value={formData.branding.companyName}
-                onChange={(e) => handleInputChange('branding.companyName', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div>
-              <label htmlFor="tagline" className="block text-sm font-medium text-gray-700">
-                Tagline
-              </label>
-              <input
-                type="text"
-                id="tagline"
-                value={formData.branding.tagline}
-                onChange={(e) => handleInputChange('branding.tagline', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div>
-              <label htmlFor="primaryColor" className="block text-sm font-medium text-gray-700">
-                Primary Color
-              </label>
-              <input
-                type="color"
-                id="primaryColor"
-                value={formData.branding.primaryColor}
-                onChange={(e) => handleInputChange('branding.primaryColor', e.target.value)}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+            
+            {/* Right Column - Preview */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-medium text-gray-700">Calculator Preview</h3>
+              <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <div className="bg-white rounded-lg shadow-sm p-4">
+                  {/* Header Preview */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      {formData.branding.logoUrl ? (
+                        <img
+                          src={formData.branding.logoUrl}
+                          alt="Logo"
+                          className="h-8 w-8 object-contain"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none'
+                          }}
+                        />
+                      ) : (
+                        <div className="h-8 w-8 bg-gray-300 rounded flex items-center justify-center">
+                          <span className="text-xs text-gray-600">Logo</span>
+                        </div>
+                      )}
+                      <div>
+                        <h1 className="text-lg font-bold" style={{ color: formData.branding.primaryColor }}>
+                          {formData.branding.companyName || 'Your Company'}
+                        </h1>
+                        {formData.branding.tagline && (
+                          <p className="text-sm text-gray-600">{formData.branding.tagline}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Sample Button */}
+                  <button
+                    className="px-4 py-2 rounded-md text-white text-sm font-medium"
+                    style={{ backgroundColor: formData.branding.primaryColor }}
+                  >
+                    Sample Button
+                  </button>
+                  
+                  {/* Color Swatches */}
+                  <div className="mt-4 flex space-x-2">
+                    <div className="text-xs">
+                      <div 
+                        className="w-6 h-6 rounded border"
+                        style={{ backgroundColor: formData.branding.primaryColor }}
+                      ></div>
+                      <span className="text-gray-500">Primary</span>
+                    </div>
+                    <div className="text-xs">
+                      <div 
+                        className="w-6 h-6 rounded border"
+                        style={{ backgroundColor: formData.branding.secondaryColor }}
+                      ></div>
+                      <span className="text-gray-500">Secondary</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-xs text-gray-500">
+                <p>This preview shows how your branding will appear in the calculator header and interface.</p>
+              </div>
             </div>
           </div>
         </div>
