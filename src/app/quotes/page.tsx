@@ -302,7 +302,7 @@ export default function UserQuotes() {
       <div className="print-only" style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #ccc' }}>
         <div style={{ textAlign: 'center', fontSize: '12px', color: '#666' }}>
           <p><strong>HDM Cincinnati</strong> | Website Development & Design</p>
-          <p>Email: john@hdmcincy.com | Phone: (513) 555-0123</p>
+          <p>Email: john@hdmcincy.com | Phone: 513-668-7344</p>
           <p>This quote is valid for 30 days from the date of generation.</p>
         </div>
       </div>
