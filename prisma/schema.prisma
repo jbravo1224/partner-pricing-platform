@@ -14,7 +14,6 @@ model Partner {
   id        String   @id @default(cuid())
   slug      String   @unique
   name      String
-  companyPassword String? // Optional company password for calculator access
   branding  Json     // { logoUrl, colors }
   emailCfg  Json     // { to[], ccDefaultSubmitter?, allowAdditionalCc? }
   formCfg   Json     // { sections: [{ fields: [{ type, name, label, required, min, max, options }] }] }
@@ -25,6 +24,7 @@ model Partner {
 
   versions PartnerVersion[]
   quotes   Quote[]
+  users    User[]
 
   @@map("partners")
 }
@@ -49,10 +49,30 @@ model PartnerVersion {
   @@map("partner_versions")
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String   // Hashed password
+  role      String   @default("user") // "admin" | "user"
+  partnerId String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  quotes  Quote[]
+
+  @@map("users")
+}
+
 model Quote {
   id           String   @id @default(cuid())
   partnerId    String
   partnerSlug  String
+  userId       String?  // Associated user (if logged in)
+  submitterEmail String? // Email of person who submitted (for non-logged in users)
+  submitterName  String? // Name of person who submitted
   inputs       Json     // Form inputs
   additionalCc String?  // Additional CC emails
   subtotal     Float
@@ -64,6 +84,7 @@ model Quote {
   updatedAt    DateTime @updatedAt
 
   partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("quotes")
 }
