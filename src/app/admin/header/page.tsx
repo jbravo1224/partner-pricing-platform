@@ -17,6 +17,7 @@ export default function HeaderSettings() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [logoLoadError, setLogoLoadError] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -129,13 +130,19 @@ export default function HeaderSettings() {
                     <input
                       type="url"
                       value={settings.logoUrl || ''}
-                      onChange={(e) => setSettings(prev => ({ ...prev, logoUrl: e.target.value }))}
+                      onChange={(e) => {
+                        setSettings(prev => ({ ...prev, logoUrl: e.target.value }))
+                        setLogoLoadError(false) // Reset error state when URL changes
+                      }}
                       placeholder="/images/your-logo.png"
                       className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <button
                       type="button"
-                      onClick={() => setSettings(prev => ({ ...prev, logoUrl: '' }))}
+                      onClick={() => {
+                        setSettings(prev => ({ ...prev, logoUrl: '' }))
+                        setLogoLoadError(false)
+                      }}
                       className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
                     >
                       Clear
@@ -235,33 +242,17 @@ export default function HeaderSettings() {
               <div className={`border rounded-lg overflow-hidden ${settings.headerBackground === 'dark' ? 'bg-gray-800' : 'bg-white border-gray-200'}`}>
                 <div className={`p-6 ${settings.headerBackground === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
                   <div className="flex items-center justify-center">
-                    {settings.logoUrl ? (
+                    {settings.logoUrl && !logoLoadError ? (
                       <div className="relative h-12 w-48 flex items-center justify-center">
                         <img
                           src={settings.logoUrl}
                           alt="HDM Logo"
                           className="h-12 object-contain"
-                          onError={(e) => {
-                            // Hide image and show fallback text
-                            const target = e.currentTarget as HTMLImageElement
-                            const container = target.parentElement
-                            if (container) {
-                              container.innerHTML = `
-                                <div class="text-center">
-                                  <div class="text-2xl font-bold mb-1" style="color: ${settings.primaryColor || '#0e2c3d'}">
-                                    HDM
-                                  </div>
-                                  <div class="text-sm font-medium" style="color: ${settings.primaryColor || '#0e2c3d'}">
-                                    HELBLING DIGITAL MEDIA
-                                  </div>
-                                  ${settings.showTagline ? `
-                                    <div class="text-xs font-semibold uppercase tracking-wider mt-1" style="color: ${settings.primaryColor || '#0e2c3d'}">
-                                      INNOVATE. SCALE. GROW.
-                                    </div>
-                                  ` : ''}
-                                </div>
-                              `
-                            }
+                          onError={() => {
+                            setLogoLoadError(true)
+                          }}
+                          onLoad={() => {
+                            setLogoLoadError(false)
                           }}
                         />
                       </div>
